@@ -24,8 +24,16 @@ El software también incluye herramientas de edición y personalización que per
 ## 2. Requerimientos del sistema
 
 ### 2.1 Funcionales
--
--
+
+- Capacidad para generar historias coherentes: el sistema debe ser capaz de generar historias que tengan sentido y coherencia en términos de la trama, los personajes y la ambientación.
+- Generación de personajes: el sistema debe ser capaz de generar personajes con características y rasgos únicos, y que sean coherentes con la historia.
+- Generación de imágenes: el sistema debe ser capaz de generar imágenes que estén relacionadas con la historia y los personajes que se han creado.
+- Flexibilidad en la generación de historias: el sistema debe ser capaz de generar diferentes tipos de historias, desde cuentos cortos hasta novelas completas, y permitir la personalización de la historia por parte del usuario.
+- Personalización de personajes: el sistema debe permitir la personalización de los personajes creados, permitiendo al usuario cambiar sus características y rasgos.
+- Interfaz fácil de usar: el sistema debe tener una interfaz fácil de usar e intuitiva para que el usuario pueda interactuar con él de manera efectiva.
+- Integración con otros sistemas: el sistema debe ser capaz de integrarse con otros sistemas o plataformas, como procesadores de texto o aplicaciones de redes sociales, para permitir la fácil compartición y publicación de las historias generadas.
+- Adaptabilidad: el sistema debe ser capaz de aprender de las preferencias y patrones de los usuarios, para generar historias más personalizadas y adaptadas a sus gustos.
+
 
 ### 2.2 No funcionales
 -
