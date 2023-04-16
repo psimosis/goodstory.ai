@@ -1,5 +1,5 @@
 ![alt text](https://github.com/psimosis/storyai/blob/main/logo_storyai.png?raw=true)
-# Storyai
+# GoodStory.Ai
 
 Make great stories with the power of artificial intelligence
 ***
