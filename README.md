@@ -16,9 +16,9 @@ Integrantes:
 ***
 
 ## 1. Introducción
-El software de creación de historias impulsado por inteligencia artificial es una herramienta innovadora que utiliza algoritmos de aprendizaje automático y procesamiento de lenguaje natural para crear historias, personajes y escenarios únicos y personalizados.
-Los usuarios pueden crear historias en una amplia variedad de géneros, desde romance hasta ciencia ficción, y desde la fantasía hasta el misterio. Además, el software también puede crear personajes únicos, detallados y con personalidades distintas, con habilidades, debilidades y características especiales que los hacen únicos.
-El software también incluye herramientas de edición y personalización que permiten a los usuarios ajustar los detalles de la trama, el carácter y el entorno para que se ajusten mejor a su visión y requisitos específicos. Además, el software también puede generar imágenes que corresponden a los personajes y lugares creados, lo que ayuda a dar vida a la historia.
+El software de creación de historias impulsado por inteligencia artificial es una herramienta innovadora que utiliza algoritmos de aprendizaje automáticopara crear historias, personajes y escenarios únicos y personalizados.
+Los usuarios pueden crear historias en una amplia variedad de géneros, desde romance hasta ciencia ficción, y desde la fantasía hasta el misterio. Además, el software también puede crear personajes únicos, detallados y con personalidades distintas, con habilidades, debilidades y características especiales.
+El software también incluye herramientas de edición y personalización que permiten a los usuarios ajustar los detalles de la trama y el entorno para que se ajusten mejor a su visión y requisitos específicos. Además, el software también puede generar imágenes que corresponden a los personajes y lugares creados, lo que ayuda a dar vida a la historia.
 
 ## 2. Requerimientos del sistema
 
