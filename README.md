@@ -33,6 +33,7 @@ El software también incluye herramientas de edición y personalización que per
 
 ### 2.2 No funcionales
 
+- Conectividad: el sistema debe establecer una conexion y consumir los servicios de OpenAi GPT3 para la generacion de contenido y DALL·E 2 para las imagenes respectivamente.
 - Fácil de usar: el sistema debe tener una instruccion fácil de usar e intuitiva para que el usuario pueda interactuar con él de manera efectiva.
 - Integración con otros sistemas: el sistema debe ser capaz de integrarse con otros sistemas o plataformas, como procesadores de texto o aplicaciones de redes sociales, para permitir la fácil compartición y publicación de las historias generadas.
 - Adaptabilidad: el sistema debe ser capaz de aprender de las preferencias y patrones de los usuarios, para generar historias más personalizadas y adaptadas a sus gustos.
