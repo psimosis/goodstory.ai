@@ -1,4 +1,4 @@
-![alt text](https://github.com/psimosis/goodstory.ai/blob/main/images/logo_goodstoryai.png?raw=true)
+![alt text](https://github.com/psimosis/goodstory.ai/blob/develop/images/logo_goodstoryai.png?raw=true)
 # GoodStory.Ai
 
 Make great stories with the power of artificial intelligence
