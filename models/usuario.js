@@ -1,7 +1,7 @@
 class usuario {
-    constructor(nombre, apellido, edad) {
+    constructor(nombre, apellido, token) {
         this.nombre = nombre;
         this.apellido = apellido;
-        this.edad = edad;
+        this.token = token;
     }
 }

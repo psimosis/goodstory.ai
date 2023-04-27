@@ -1,5 +1,7 @@
 class historia {
-    constructor() {
-        this.historial = [];
+    constructor(descripcion, cantpersonajes, genero) {
+        this.descripcion = descripcion;
+        this.cantpersonajes = cantpersonajes;
+        this.genero = genero;
     }
 }
