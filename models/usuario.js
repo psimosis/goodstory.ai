@@ -5,3 +5,5 @@ class usuario {
         this.token = token;
     }
 }
+
+export default usuario;
