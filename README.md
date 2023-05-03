@@ -12,7 +12,6 @@ Integrantes:
 - Patricio Simosis
 - Guido Compagno
 - Lucas Martin Funes
-- Noelia Taboada Vega
 
 ***
 
