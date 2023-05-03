@@ -1,12 +1,12 @@
 let chai = require('chai');
-const { default: historia } = require('../models/historia').default;
+const historia = require('../models/historia');
 let expect = chai.expect;
 
 describe("Objeto Historia", function(){
 
-    it("Deberia crear un objeto Historia con todos los datos necesarios", function(){
-        let histor = new historia();
-        expect(histor).to.have.all.keys('id', 'descripcion', 'cantpersonajes', 'genero');
+    it("El Objeto Historia con todos los datos necesarios", function(){
+        let histor = new historia('1', 'Habia una vez un perrito', '2', 'fantastico',['pedro','jose']);
+        expect(histor).to.have.all.keys('id', 'descripcion', 'cantpersonajes', 'genero','personajes');
     });
   
 })

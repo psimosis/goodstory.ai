@@ -1,5 +1,5 @@
 let chai = require('chai');
-const { default: personaje } = require('../models/personaje').default;
+const personaje= require('../models/personaje');
 let expect = chai.expect;
 
 describe("Objeto Personaje", function(){

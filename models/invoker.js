@@ -19,4 +19,4 @@ class invoker {
     }
   }
   
-  export default invoker;
+  module.exports = invoker;

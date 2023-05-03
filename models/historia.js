@@ -8,4 +8,4 @@ class historia {
     }
 }
 
-export default historia;
+module.exports = historia;

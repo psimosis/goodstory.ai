@@ -6,4 +6,4 @@ class personaje {
     }
 }
 
-export default personaje;
+module.exports = personaje;
