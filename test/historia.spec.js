@@ -1,5 +1,5 @@
 let chai = require('chai');
-const { default: historia } = require('../models/historia');
+const { default: historia } = require('../models/historia').default;
 let expect = chai.expect;
 
 

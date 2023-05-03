@@ -4,3 +4,5 @@ class personaje {
         this.descripcion = descripcion;
     }
 }
+
+export default personaje;

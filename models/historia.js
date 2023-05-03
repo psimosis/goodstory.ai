@@ -1,11 +1,11 @@
 class historia {
-    constructor(id, descripcion, cantpersonajes, genero) {
+    constructor(id, descripcion, cantpersonajes, genero, personajes) {
         this.id = id;
         this.descripcion = descripcion;
         this.cantpersonajes = cantpersonajes;
         this.genero = genero;
+        this.personajes = personajes;
     }
 }
 
-
-//export default new historia();
+export default historia;
