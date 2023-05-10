@@ -6,6 +6,7 @@ class historia {
         this.genero = genero;
         this.personajes = personajes;
     }
+    
 }
 
 module.exports = historia;

@@ -8,7 +8,7 @@ class invoker {
     }
   
     ejecxutarComando() {
-      this.listaDeComandos.forEach(comando => comando.ejecutar());
+      this.listaDeComandos.forEach(comando => comando.execute());
       this.listaDeComandos = [];
     }
   

@@ -7,6 +7,7 @@ class Command {
   }
 
 class generadorHistoria extends Command {
+    
     constructor(descripcion, cantPersonajes, genero){
         super();
         this.descripcion = descripcion;
@@ -14,7 +15,7 @@ class generadorHistoria extends Command {
         this.genero = genero;
         this.histor = null;
     }
-    ejecutar() {
+    execute() {
         this.histor = new historia(this.descripcion, this.cantPersonajes, this.genero, []);
 
         for (let i = 0; i < this.cantPersonajes; i++) {
