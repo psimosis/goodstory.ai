@@ -1,6 +1,7 @@
 class personaje {
-    constructor(nombre, descripcion, edad) {
+    constructor(nombre, tipo, descripcion, edad) {
         this.nombre = nombre;
+        this.tipo = tipo;
         this.descripcion = descripcion;
         this.edad = edad;
     }
