@@ -1,10 +1,17 @@
-class personaje {
-    constructor(nombre, tipo, descripcion, edad) {
+class Personaje {
+    constructor(id, nombre, tipo, descripcion, edad) {
+        this.id = id;
         this.nombre = nombre;
         this.tipo = tipo;
         this.descripcion = descripcion;
         this.edad = edad;
+        this.habilidades = [];
+    }
+
+    agregarHabilidad(habilidad) {
+        this.habilidades.push(habilidad);
     }
 }
 
-module.exports = personaje;
+
+module.exports = Personaje;

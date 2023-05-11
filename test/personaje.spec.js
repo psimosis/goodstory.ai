@@ -1,13 +1,14 @@
 let chai = require('chai');
-const personaje= require('../models/personaje');
+const Habilidad = require('../models/habilidad.js');
+const Personaje = require('../models/personaje.js');
 let expect = chai.expect;
 
 describe("Objeto Personaje", function(){
 
-    //it("El objeto Personaje deberia contar con todos los datos necesarios", function(){
-    //    let person = new personaje();
-    //    expect(person).to.have.all.keys('nombre', 'descripcion', 'edad');
-    //});
+    // it("El objeto Personaje deberia contar con todos los datos necesarios", function(){
+    //    let person = new Personaje();
+    //    expect(person).to.have.all.keys('nombre', 'descripcion', 'edad', 'tipo');
+    // });
 
     it('debería crear un personaje con nombre, tipo, descripcion, edad',  () => {
         // Arrange
@@ -15,26 +16,31 @@ describe("Objeto Personaje", function(){
         const tipo = 'Protagonista';
         const descripcion = 'Es un personaje medio loco';
         const edad = '150';
-    
+
         // Act
-        const personaje = new personaje(nombre, tipo, descripcion, edad);
-    
+        const character = new Personaje(nombre, tipo, descripcion, edad);
+
         // Assert
-        expect(personaje.nombre).to.equal(nombre);
-        expect(personaje.tipo).to.equal(tipo);
-        expect(personaje.descripcion).to.equal(descripcion);
-        expect(personaje.edades).to.equal(edad);
+        expect(character.nombre).to.equal(nombre);
+        expect(character.tipo).to.equal(tipo);
+        expect(character.descripcion).to.equal(descripcion);
+        expect(character.edad).to.equal(edad);
       });
     
       it('debería permitir agregar una habilidad al personaje', () => {
         // Arrange
-        const personaje = new personaje('Tom', 'Protagonista','Es un personaje medio loco','150');
-        const habilidad = new habilidad('Fuerza', 'Alta');
+        let personaje = null;
+        personaje = new Personaje('Tom', 'Protagonista','Es un personaje medio loco','150');
+        const habilidad = new Habilidad("Fuerza","Alta");
     
         // Act
         personaje.agregarHabilidad(habilidad);
-    
+
         // Assert
-        expect(personaje.habilidades).to.contain(habilidad);
+        expect(personaje.habilidades).to.contains(habilidad);
+
       });
+
+      it('si tiene mas de 3 personajes, tirar error', () => {
+      }
 })

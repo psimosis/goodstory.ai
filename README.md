@@ -70,3 +70,21 @@ El flujo de trabajo sería el siguiente: el usuario ingresaría los datos de la 
 
 ## 5. Conclusión
 El sistema de creación de historias es una herramienta poderosa y creativa que permite a los usuarios crear historias originales, con personajes únicos y detalles vívidos.
+
+
+1. Crear usuario
+2. Nos devuelve token, para operar
+
+Para personajes:
+3. www.api.com/personajes/types
+
+{
+"name" : Juan Lopez,
+"Type": Protagonista, co-protagonista, secundario
+"Edad": 23,
+}
+
+Para historia:
+
+Generos: Accion, Drama, Epica, Terror
+Estilo: Borges, Lovecraft, 
