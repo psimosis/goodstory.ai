@@ -42,5 +42,5 @@ describe("Objeto Personaje", function(){
       });
 
       it('si tiene mas de 3 personajes, tirar error', () => {
-      }
+      });
 })
