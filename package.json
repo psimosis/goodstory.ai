@@ -1,0 +1,18 @@
+{
+  "name": "goodstory.ai",
+  "version": "1.0.0",
+  "description": "GoodStoory.Ai API",
+  "main": "index.js",
+  "type": "commonjs",
+  "scripts": {
+    "test": "mocha"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "chai": "^4.3.7",
+    "express": "^4.18.2",
+    "mocha": "^10.2.0",
+    "uuid-token-generator": "^1.0.0"
+  }
+}
