@@ -1,6 +1,8 @@
 const Personaje = require('./models/personaje.js')
 const Usuario = require('./models/usuario.js')
 const TokenGenerator = require('uuid-token-generator');
+const { crearUsuarioController, listarUsuarios }  = require('./controllers/userController.js')
+
 
 const express = require('express')
 const app = express()
@@ -27,14 +29,9 @@ app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
 
-app.post('/user', (req, res) => {
-    
-    const u = req.body
-    console.log(u);
-    const usuarioCreado = new Usuario(u.nombre, u.apellido, u.username, u.password);
-    listaUsuarios.push(usuarioCreado)
-    res.send(`Hola ${usuarioCreado.nombre}, creamos tu usuario ${usuarioCreado.username}.`)
-})
+app.post('/user', crearUsuarioController)
+
+app.get('/users', listarUsuarios)
 
 // app.get('/user/{id}', (req, res) => {
 //     const u = req.body
