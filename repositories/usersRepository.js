@@ -18,6 +18,13 @@ class UserRepository {
         console.log(lista)
         return lista;
     }
+
+    static getInstance() {
+        if (!UserRepository.instance) {
+          UserRepository.instance = new UserRepository();
+        }
+        return UserRepository.instance;
+    }
 }
 
 module.exports = UserRepository;
