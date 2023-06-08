@@ -1,9 +1,9 @@
 class Genero {
-    constructor(tipo, valor) {
+    constructor(tipo, descripcion, username) {
         this.tipo = tipo;
-        this.valor = valor;
+        this.descripcion = descripcion;
+        this.username = username;
     }
-
 }
 
 

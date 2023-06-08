@@ -1,7 +1,4 @@
-const Personaje = require('./models/personaje.js')
-const Usuario = require('./models/usuario.js')
-const TokenGenerator = require('uuid-token-generator');
-const { crearUsuarioController, listarUsuarios }  = require('./controllers/userController.js')
+const { crearUsuarioController, listarUsuarios, obtenerUsusario, login }  = require('./controllers/userController.js')
 
 
 const express = require('express')
@@ -10,44 +7,31 @@ const port = 3000
 
 app.use(express.json());
 
-const listaPersonajes = []
-
-const listaUsuarios = []
-
-app.get('/personajes', (req, res) => {
-
-  res.send(listaPersonajes)
-})
-
-app.post('/personaje', (req, res) => {
-    const p = req.body
-    listaPersonajes.push(new Personaje(1, p.name, p.tipo, p.descripcion, p.edad))
-    res.send(`Este es el personaje que creaste ${p.name}`)
-})
-
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
+
+// app.get('/personajes', (req, res) => {
+
+//   res.send(listaPersonajes)
+// })
+
+// app.post('/personaje', (req, res) => {
+//     const p = req.body
+//     listaPersonajes.push(new Personaje(1, p.name, p.tipo, p.descripcion, p.edad))
+//     res.send(`Este es el personaje que creaste ${p.name}`)
+// })
+
+// Genre methods
+
+// app.post('/genre', authorizationController, genreController)
+
+// User methods
 
 app.post('/user', crearUsuarioController)
 
 app.get('/users', listarUsuarios)
 
-// app.get('/user/{id}', (req, res) => {
-//     const u = req.body
-//     listaUsuarios.push(new Usuario(1, p.name, p.tipo, p.descripcion, p.edad))
-//     res.send(`Este es el personaje que creaste ${p.name}`)
-// })
+app.get('/user', obtenerUsusario)
 
-app.get('/login', (req, res) => {
-    const user = req.body
-
-    //Hacer validaciones de usuario/pass
-
-    const tokgen2 = new TokenGenerator(256, TokenGenerator.BASE62);
-    const token = tokgen2.generate();
-
-    // Agregar token al usuario 
-
-    res.send(`Hola ${req.body.username} tu token es ${token}`)
-})
+app.post('/login', login)
