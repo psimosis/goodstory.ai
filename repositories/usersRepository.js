@@ -14,10 +14,10 @@ class UserRepository {
             const userDB = await this.db.crear(user);
             console.log(userDB);
         } catch(e){
-
+            
         }
     }
-
+    
     async obtenerUsuario(username){
         try {
             await this.db.conectar();
@@ -28,7 +28,6 @@ class UserRepository {
             if(user == null){
                 throw new DBError("User not found", 500);
             }
-
             return user;
         } catch(e){
             throw new DBError(e.message, e.statusCode);
@@ -36,12 +35,10 @@ class UserRepository {
     }
 
     async listarUsuarios(){
-
             await this.db.conectar();
             const lista = await this.db.listar();
             console.log(lista)
             return lista;
-
     }
 
     async login(user, token){
