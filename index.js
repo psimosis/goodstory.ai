@@ -1,11 +1,8 @@
 const { crearUsuarioController, listarUsuarios, obtenerUsusario, login }  = require('./controllers/userController.js')
 const { userDataValidate, userLoginDataValidate } = require("./validations/user.validation.js");
-<<<<<<< HEAD
 const { crearGenero } = require("./controllers/generoController.js");
 const { sessionTokenValidate } = require("./controllers/authorizationController.js");
-=======
 const { crearGenero, listarGeneros} = require("./controllers/genreController.js")
->>>>>>> 93bd3a48b7613b85e24e7c60c00514ffadc3305c
 
 const express = require('express')
 const app = express()
