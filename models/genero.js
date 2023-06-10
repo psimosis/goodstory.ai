@@ -1,10 +1,9 @@
 class Genero {
-    constructor(tipo, descripcion, username) {
-        this.tipo = tipo;
+    constructor(nombre, descripcion) {
+        this.nombre = nombre;
         this.descripcion = descripcion;
-        this.username = username;
+        //this.username = username;
     }
 }
 
-
-module.exports = Habilidad;
+module.exports = Genero;

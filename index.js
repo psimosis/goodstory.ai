@@ -1,5 +1,6 @@
 const { crearUsuarioController, listarUsuarios, obtenerUsusario, login }  = require('./controllers/userController.js')
 const { userDataValidate, userLoginDataValidate } = require("./validations/user.validation.js");
+const { crearGenero } = require("./controllers/generoController.js")
 
 const express = require('express')
 const app = express()
@@ -35,3 +36,5 @@ app.get('/users', listarUsuarios)
 app.get('/user', obtenerUsusario)
 
 app.post('/login', userLoginDataValidate, login)
+
+app.post('/genero', crearGenero)
