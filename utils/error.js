@@ -10,6 +10,6 @@ module.exports = class CustomError extends Error {
 module.exports = class DBError extends Error {
     constructor(message, statusCode) {
       super(message);
-      this.statusCode = 402;
+      this.statusCode = statusCode;
     }
 }
