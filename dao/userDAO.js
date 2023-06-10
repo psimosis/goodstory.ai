@@ -34,6 +34,15 @@ module.exports = class UserDAO {
         }
     }
 
+    obtenerConToken(token) {
+        try{
+            console.log("El token del usuario en DAO a obtener es: " + token);
+            return this.db.collection('users').findOne({token: token});
+        } catch (e) {
+            throw new Error(e.message)
+        }
+    }
+
     update(user){
         try{
             return this.db.collection('users').updateOne({ "username": user.username },

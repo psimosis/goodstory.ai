@@ -1,6 +1,7 @@
 const { crearUsuarioController, listarUsuarios, obtenerUsusario, login }  = require('./controllers/userController.js')
 const { userDataValidate, userLoginDataValidate } = require("./validations/user.validation.js");
-const { crearGenero } = require("./controllers/generoController.js")
+const { crearGenero } = require("./controllers/generoController.js");
+const { sessionTokenValidate } = require("./controllers/authorizationController.js");
 
 const express = require('express')
 const app = express()
@@ -31,7 +32,7 @@ app.listen(port, () => {
 
 app.post('/user',userDataValidate, crearUsuarioController)
 
-app.get('/users', listarUsuarios)
+app.get('/users', sessionTokenValidate, listarUsuarios)
 
 app.get('/user', obtenerUsusario)
 
