@@ -1,5 +1,5 @@
 const { crearUsuarioController, listarUsuarios, obtenerUsusario, login }  = require('./controllers/userController.js')
-
+const { userDataValidate, userLoginDataValidate } = require("./validations/user.validation.js");
 
 const express = require('express')
 const app = express()
@@ -28,10 +28,10 @@ app.listen(port, () => {
 
 // User methods
 
-app.post('/user', crearUsuarioController)
+app.post('/user',userDataValidate, crearUsuarioController)
 
 app.get('/users', listarUsuarios)
 
 app.get('/user', obtenerUsusario)
 
-app.post('/login', login)
+app.post('/login', userLoginDataValidate, login)

@@ -52,11 +52,11 @@ class UserRepository {
             // console.log(userDb[0].password)
             // console.log(user.password)
             
-            if(userDoc.password == user.password){
-                console.log("La pass es correcta")
-            }else{
-                console.log("La pass es incorrecta")
-            }
+            //if(userDoc.password == user.password){
+            //    console.log("La pass es correcta")
+            //}else{
+            //    console.log("La pass es incorrecta")
+            //}
     
     
             const userDb = new Usuario(
@@ -66,11 +66,11 @@ class UserRepository {
                 userDoc.password,
                 token);
     
-            console.log(userDb)
+            //console.log(userDb)
     
             const result = await this.db.update(userDb);
     
-            console.log(result)
+            //console.log(result)
             //return lista;
         } catch(e){
 
