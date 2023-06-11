@@ -13,7 +13,7 @@ class GenreRepository {
             const generoCreado = await this.db.crear(genero);
             console.log(generoCreado);
         } catch(e){
-
+            throw new Error(e.message)
         }
     }
 
@@ -28,20 +28,31 @@ class GenreRepository {
         try {
             await this.db.conectar();
             console.log(genero);
-            const user = await this.db.obtener(genero);
-            console.log(user);
+            const generoObtenido = await this.db.obtener(genero);
+            console.log(generoObtenido);
 
-            if(user == null){
-                throw new DBError("User not found", 500);
+            if(generoObtenido == null){
+                throw new DBError("Genre not found", 500);
             }
-
-            return user;
+            return generoObtenido;
         } catch(e){
             throw new DBError(e.message, e.statusCode);
         }
     }
 
-    
+    async borrar(genero) {
+        try{
+            await this.db.conectar();
+            const generoBuscado = await this.obtenerGenero({
+                nombre: genero.nombre,
+                username: genero.username
+            })
+            const generoBorrado = await this.db.borrar(generoBuscado)
+            return generoBorrado
+        } catch(e) {
+            throw new Error(e.message)
+        }
+    }
 
     static getInstance() {
         if (!GenreRepository.instance) {

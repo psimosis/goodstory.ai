@@ -2,7 +2,7 @@ const { crearUsuarioController, listarUsuarios, obtenerUsusario, login }  = requ
 const { userDataValidate, userLoginDataValidate } = require("./validations/user.validation.js");
 //const { crearGenero } = require("./controllers/generoController.js");
 const { sessionTokenValidate } = require("./controllers/authorizationController.js");
-const { crearGenero, listarGeneros} = require("./controllers/genreController.js")
+const { crearGenero, listarGeneros, obtenerGenero, borrarGenero} = require("./controllers/genreController.js")
 
 const express = require('express')
 const app = express()
@@ -42,3 +42,7 @@ app.post('/login', userLoginDataValidate, login)
 app.post('/genre', crearGenero)
 
 app.get('/genres', listarGeneros)
+
+app.get('/genre', obtenerGenero)
+
+app.delete('/genre', borrarGenero)

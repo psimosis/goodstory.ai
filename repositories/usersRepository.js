@@ -17,7 +17,7 @@ class UserRepository {
             
         }
     }
-    
+
     async obtenerUsuario(username){
         try {
             await this.db.conectar();

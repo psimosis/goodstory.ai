@@ -35,7 +35,10 @@ module.exports = class GenreDAO {
 
     obtener(genero) {
         try{
-            return this.db.collection('genres').findOne({username: username});
+            return this.db.collection('genres').findOne({
+                nombre: genero.nombre,
+                username: genero.username
+            });
         } catch (e) {
             throw new Error(e.message)
         }
@@ -52,6 +55,14 @@ module.exports = class GenreDAO {
               "token": user.token
                 }
             })
+        } catch (e) {
+            throw new Error(e.message)
+        }
+    }
+
+    borrar(genero) {
+        try{
+            return this.db.collection('genres').findOneAndDelete(genero)
         } catch (e) {
             throw new Error(e.message)
         }
