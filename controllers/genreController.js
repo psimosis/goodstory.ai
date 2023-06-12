@@ -6,6 +6,8 @@ const UserRepository = require('../repositories/usersRepository')
 const ApiResponse = require('../helpers/ApiResponse')
 
 async function crearGenero(req, res) {
+
+  console.log("hola")
     const nombre = req.body.nombre
     const descripcion = req.body.descripcion
     const username = req.body.username
