@@ -1,6 +1,7 @@
 const GenreDAO = require("../dao/genreDao");
 const Usuario = require('../models/usuario')
-const DBError = require('../utils/error');
+const ClientError = require('../utils/error');
+const ServerError = require('../utils/error');
 
 class GenreRepository {
     constructor() {
@@ -11,46 +12,60 @@ class GenreRepository {
         try {
             await this.db.conectar();
             const generoCreado = await this.db.crear(genero);
-            console.log(generoCreado);
+            return generoCreado
+            //if genero ya esta creado, throw new ClientError
         } catch(e){
-            throw new Error(e.message)
+            if (e instanceof ClientError) {
+                throw e;
+            } else {
+                throw new ServerError("Internal server error", 500);
+            }
         }
     }
 
     async listar() {
         await this.db.conectar();
         const lista = await this.db.listar();
-        console.log(lista)
         return lista;
     }
 
     async obtenerGenero(genero) {
         try {
             await this.db.conectar();
-            console.log(genero);
             const generoObtenido = await this.db.obtener(genero);
-            console.log(generoObtenido);
 
-            if(generoObtenido == null){
-                throw new DBError("Genre not found", 500);
+            if (generoObtenido == null){
+                throw new ClientError("Genre not found", 404);
             }
-            return generoObtenido;
+            return generoObtenido
         } catch(e){
-            throw new DBError(e.message, e.statusCode);
+            //throw new ServerError(e.message, e.statusCode);
+            if (e instanceof ClientError) {
+                throw e;
+            } else {
+                throw new ServerError("Internal server error", 500);
+            }
         }
     }
 
     async borrar(genero) {
         try{
-            await this.db.conectar();
             const generoBuscado = await this.obtenerGenero({
                 nombre: genero.nombre,
                 username: genero.username
             })
+            await this.db.conectar();
             const generoBorrado = await this.db.borrar(generoBuscado)
-            return generoBorrado
+            console.log("Género borrado: " + generoBorrado)
+            console.log("Género borrado: " + generoBorrado.value)
+            
+            return generoBorrado.value
         } catch(e) {
-            throw new Error(e.message)
+            if (e instanceof ClientError) {
+                throw e;
+            } else {
+                throw new ServerError("Internal server error", 500);
+            }
         }
     }
 
