@@ -27,7 +27,7 @@ async function crearGenero(req, res) {
         return ApiResponse.sendSuccessResponse(res, 201, {
           status: "Genre created"
         })
-      } catch (error) {
+      } catch (e) {
         return ApiResponse.sendErrorResponse(res, e.statusCode, e.message)
       }
 }

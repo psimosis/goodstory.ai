@@ -35,14 +35,14 @@ module.exports = class GenreDAO {
     }
 
     obtener(genero) {
-        //try{
+        try{
             return this.db.collection('genres').findOne({
                 nombre: genero.nombre,
                 username: genero.username
             });
-        //} catch (e) {
-        //    throw new ServerError(e.message, 500)
-       // }
+        } catch (e) {
+            throw new ServerError(e.message, 500)
+        }
     }
 
     update(genero){
