@@ -54,10 +54,11 @@ async function listarUsuarios (req, res) {
 async function login(req, res) {
     const userLogin = req.body
     const repo = UserRepository.getInstance();
-    if ( await userValidations.userValidateCredentials(userLogin.username, userLogin.password)){
+
+    if (await userValidations.userValidateCredentials(userLogin.username, userLogin.password)){
         const tokgen2 = new TokenGenerator(256, TokenGenerator.BASE62);
         const token = tokgen2.generate();
-        const asd = await repo.login(userLogin, token);
+        const asd = await repo.setSessionToken(userLogin, token);
         res.json({
             "username": req.body.username,
             "session-token": token
