@@ -12,29 +12,30 @@ app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
 
-// app.get('/personajes', (req, res) => {
+app.post('/user', (req, res) => {
+    
+    const u = req.body
+    console.log(u);
+    const usuarioCreado = new Usuario(u.nombre, u.apellido, u.username, u.password);
+    listaUsuarios.push(usuarioCreado)
+    res.send(`Hola ${usuarioCreado.nombre}, creamos tu usuario ${usuarioCreado.username}.`)
+})
 
-//   res.send(listaPersonajes)
-// })
-
-// app.post('/personaje', (req, res) => {
-//     const p = req.body
-//     listaPersonajes.push(new Personaje(1, p.name, p.tipo, p.descripcion, p.edad))
+// app.get('/user/{id}', (req, res) => {
+//     const u = req.body
+//     listaUsuarios.push(new Usuario(1, p.name, p.tipo, p.descripcion, p.edad))
 //     res.send(`Este es el personaje que creaste ${p.name}`)
 // })
 
-// Genre methods
+app.get('/login', (req, res) => {
+    const user = req.body
 
-// app.post('/genre', authorizationController, genreController)
+    //Hacer validaciones de usuario/pass
 
-// User methods
+    const tokgen2 = new TokenGenerator(256, TokenGenerator.BASE62);
+    const token = tokgen2.generate();
 
-app.post('/user',userDataValidate, crearUsuarioController)
+    // Agregar token al usuario 
 
-app.get('/users', listarUsuarios)
-
-app.get('/user', obtenerUsusario)
-
-app.post('/login', userLoginDataValidate, login)
-
-app.post('/genero', crearGenero)
+    res.send(`Hola ${req.body.username} tu token es ${token}`)
+})
