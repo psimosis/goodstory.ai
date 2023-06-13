@@ -1,6 +1,6 @@
 const UserDAO = require("../dao/userDAO");
 const Usuario = require('../models/usuario')
-const DBError = require('../utils/error');
+const ErrorClasses = require('../utils/error');
 
 class UserRepository {
 
@@ -14,7 +14,7 @@ class UserRepository {
             const userDB = await this.db.crear(user);
             console.log(userDB);
         } catch(e){
-            
+            throw e
         }
     }
 
@@ -26,11 +26,11 @@ class UserRepository {
             console.log(user);
 
             if(user == null){
-                throw new DBError("User not found", 500);
+                throw new ErrorClasses.Error404()
             }
             return user;
         } catch(e){
-            throw new DBError(e.message, e.statusCode);
+            throw e
         }
     }
 
@@ -54,7 +54,7 @@ class UserRepository {
             const result = await this.db.update(userDb);
     
         } catch(e){
-
+            throw e
         }
     }
 
@@ -69,7 +69,7 @@ class UserRepository {
             //}
             return user;
         } catch(e){
-            throw new DBError(e.message, e.statusCode);
+            throw e
         }
     }
 

@@ -1,6 +1,6 @@
 const GenreDAO = require("../dao/genreDao");
 const Usuario = require('../models/usuario')
-const DBError = require('../utils/error');
+const ErrorClasses = require('../utils/error');
 
 class GenreRepository {
     constructor() {
@@ -11,46 +11,47 @@ class GenreRepository {
         try {
             await this.db.conectar();
             const generoCreado = await this.db.crear(genero);
-            console.log(generoCreado);
-        } catch(e){
-            throw new Error(e.message)
+            return generoCreado
+            //if genero ya esta creado, throw new ClientError
+        } catch(error){
+            throw error
         }
     }
 
     async listar() {
         await this.db.conectar();
         const lista = await this.db.listar();
-        console.log(lista)
         return lista;
     }
 
     async obtenerGenero(genero) {
         try {
             await this.db.conectar();
-            console.log(genero);
             const generoObtenido = await this.db.obtener(genero);
-            console.log(generoObtenido);
 
-            if(generoObtenido == null){
-                throw new DBError("Genre not found", 500);
+            if (generoObtenido == null){
+                throw new ErrorClasses.Error404()
             }
-            return generoObtenido;
-        } catch(e){
-            throw new DBError(e.message, e.statusCode);
+            return generoObtenido
+        } catch(error){
+            throw error
         }
     }
 
     async borrar(genero) {
         try{
-            await this.db.conectar();
             const generoBuscado = await this.obtenerGenero({
                 nombre: genero.nombre,
                 username: genero.username
             })
+            await this.db.conectar();
             const generoBorrado = await this.db.borrar(generoBuscado)
-            return generoBorrado
-        } catch(e) {
-            throw new Error(e.message)
+            console.log("Género borrado: " + generoBorrado)
+            console.log("Género borrado: " + generoBorrado.value)
+            
+            return generoBorrado.value
+        } catch(error) {
+            throw error
         }
     }
 
