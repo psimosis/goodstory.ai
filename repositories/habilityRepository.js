@@ -21,15 +21,14 @@ class HabilityRepository {
     async obtenerHabilidad(habilidad){
         try {
             await this.db.conectar();
-            console.log(habilidad);
-            const hability = await this.db.obtener(habilidad);
-            console.log(habilidad);
+            const hability = await this.db.obtener(habilidad.tipo);
+            console.log(hability);
 
             if(hability == null){
                 throw new DBError("Hability not found", 500);
             }
 
-            return user;
+            return hability;
         } catch(e){
             throw new DBError(e.message, e.statusCode);
         }
@@ -42,37 +41,23 @@ class HabilityRepository {
             return lista;
     }
 
-    // async setSessionToken(user, token){
-    //     try {
-    //         await this.db.conectar();
-    //         const userDoc = await this.db.obtener(user.username);  
-    //         const userDb = new Usuario(
-    //             userDoc.nombre, 
-    //             userDoc.apellido,
-    //             userDoc.username,
-    //             userDoc.password,
-    //             token);
-    //         const result = await this.db.update(userDb);
-    
-    //     } catch(e){
+    async borrar(habilidad) {
+        try{
+            await this.db.conectar();
+            const habilidadBuscada = await this.db.obtener(habilidad.tipo)
+            console.log(habilidadBuscada)
+            if(habilidadBuscada == null){
+                throw new Error("Habilidad no encontrada")
+            }
+            const habilidadBorrada = await this.db.borrar(habilidadBuscada.tipo)
+            console.log(habilidadBorrada)
+            return habilidadBorrada    
+        } catch(e) {
+            throw new Error(e.message)
+        }
+    }
 
-    //     }
-    // }
 
-    // async getUsrSessionToken(valToken){
-    //     try {
-    //         await this.db.conectar();
-    //         console.log("El token para obtener el usuario en el repositorio es: " + valToken);
-    //         const user = await this.db.obtenerConToken(valToken);
-    //         console.log("El usuario encontrado es: " + user);
-    //         //if(user == null){
-    //         //    throw new DBError("User not found", 500);
-    //         //}
-    //         return user;
-    //     } catch(e){
-    //         throw new DBError(e.message, e.statusCode);
-    //     }
-    // }
 
     static getInstance() {
         if (!HabilityRepository.instance) {

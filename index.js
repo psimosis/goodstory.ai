@@ -2,8 +2,8 @@ const { crearUsuarioController, listarUsuarios, obtenerUsusario, login }  = requ
 const { userDataValidate, userLoginDataValidate } = require("./validations/user.validation.js");
 //const { crearGenero } = require("./controllers/generoController.js");
 const { sessionTokenValidate } = require("./controllers/authorizationController.js");
-const { crearGenero, listarGeneros, obtenerGenero, borrarGenero} = require("./controllers/genreController.js")
-const {crearHabilidadController} = require("./controllers/habilityController.js")
+const { crearGenero, listarGeneros, obtenerGenero, borrarGenero } = require("./controllers/genreController.js")
+const { crearHabilidadController, listarHabilidadesController, obtenerHabilidadController, borrarHabilidadController } = require("./controllers/habilityController.js")
 
 const express = require('express')
 const app = express()
@@ -28,6 +28,12 @@ app.post('/login', userLoginDataValidate, login)
 // Habilities methods
 
 app.post('/hability', sessionTokenValidate, crearHabilidadController)
+
+app.get('/hability', sessionTokenValidate, obtenerHabilidadController)
+
+app.get('/habilities', sessionTokenValidate, listarHabilidadesController)
+
+app.delete('/hability',sessionTokenValidate, borrarHabilidadController)
 
 // Genres methods
 
