@@ -1,4 +1,5 @@
 const { MongoClient, ServerApiVersion } = require('mongodb');
+const ErrorClasses = require('../utils/error');
 
 module.exports = class UserDAO {
     constructor() {
@@ -11,9 +12,8 @@ module.exports = class UserDAO {
         try {
           await this.client.connect()
         } catch (e) {
-          throw new Error(e.message)
+            throw new ErrorClasses.Error500();
         }
-    
         this.db = this.client.db(this.dbName)
     }
     
@@ -21,7 +21,7 @@ module.exports = class UserDAO {
         try{
             return this.db.collection('users').find().toArray();
         } catch (e) {
-            throw new Error(e.message)
+            throw new ErrorClasses.Error500();
         }
         
     }
@@ -30,7 +30,7 @@ module.exports = class UserDAO {
         try{
             return this.db.collection('users').findOne({username: username});
         } catch (e) {
-            throw new Error(e.message)
+            throw new ErrorClasses.Error500();
         }
     }
 
@@ -39,7 +39,7 @@ module.exports = class UserDAO {
             console.log("El token del usuario en DAO a obtener es: " + token);
             return this.db.collection('users').findOne({token: token});
         } catch (e) {
-            throw new Error(e.message)
+            throw new ErrorClasses.Error500();
         }
     }
 
@@ -55,7 +55,7 @@ module.exports = class UserDAO {
                 }
             })
         } catch (e) {
-            throw new Error(e.message)
+            throw new ErrorClasses.Error500();
         }
     }
 
@@ -63,7 +63,7 @@ module.exports = class UserDAO {
         try{
             return this.db.collection('users').insertOne(user);
         } catch (e) {
-            throw new Error(e.message)
+            throw new ErrorClasses.Error500();
         }
     }
 }

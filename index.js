@@ -1,4 +1,4 @@
-const { crearUsuarioController, listarUsuarios, obtenerUsusario, login }  = require('./controllers/userController.js')
+const { crearUsuarioController, listarUsuarios, obtenerUsuario, login }  = require('./controllers/userController.js')
 const { userDataValidate, userLoginDataValidate } = require("./validations/user.validation.js");
 //const { crearGenero } = require("./controllers/generoController.js");
 const { sessionTokenValidate } = require("./controllers/authorizationController.js");
@@ -21,7 +21,7 @@ app.post('/user',userDataValidate, crearUsuarioController)
 
 app.get('/users', sessionTokenValidate, listarUsuarios)
 
-app.get('/user', obtenerUsusario)
+app.get('/user', obtenerUsuario)
 
 app.post('/login', userLoginDataValidate, login)
 
