@@ -1,5 +1,5 @@
 const { MongoClient } = require('mongodb');
-const ServerError = require('../utils/error');
+const ErrorClasses = require('../utils/error');
 
 module.exports = class GenreDAO {
     constructor() {
@@ -12,7 +12,7 @@ module.exports = class GenreDAO {
         try {
           await this.client.connect()
         } catch (e) {
-          throw new ServerError(e.message)
+            throw new ErrorClasses.Error500();
         }
         this.db = this.client.db(this.dbName)
     }
@@ -21,7 +21,7 @@ module.exports = class GenreDAO {
         try{
             return this.db.collection('genres').insertOne(genero);
         } catch (e) {
-            throw new ServerError(e.message, 500)
+            throw new ErrorClasses.Error500();
         }
     }
     
@@ -29,7 +29,7 @@ module.exports = class GenreDAO {
         try{
             return this.db.collection('genres').find().toArray();
         } catch (e) {
-            throw new ServerError(e.message, 500)
+            throw new ErrorClasses.Error500();
         }
         
     }
@@ -41,7 +41,7 @@ module.exports = class GenreDAO {
                 username: genero.username
             });
         } catch (e) {
-            throw new ServerError(e.message, 500)
+            throw new ErrorClasses.Error500();
         }
     }
 
@@ -57,7 +57,7 @@ module.exports = class GenreDAO {
                 }
             })
         } catch (e) {
-            throw new ServerError(e.message, 500)
+            throw new ErrorClasses.Error500();
         }
     }
 
@@ -65,7 +65,7 @@ module.exports = class GenreDAO {
         try{
             return this.db.collection('genres').findOneAndDelete({nombre: genero.nombre, username: genero.username})
         } catch (e) {
-            throw new ServerError(e.message, 500)
+            throw new ErrorClasses.Error500();
         }
     }
     

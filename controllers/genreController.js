@@ -4,6 +4,8 @@ const GenreRepository = require("../repositories/genreRepository")
 const DBError = require('../utils/error');
 const UserRepository = require('../repositories/usersRepository')
 const ApiResponse = require('../helpers/ApiResponse')
+const ErrorClasses = require('../utils/error');
+
 
 async function crearGenero(req, res) {
 
@@ -12,11 +14,12 @@ async function crearGenero(req, res) {
     const descripcion = req.body.descripcion
     const username = req.body.username
 
-    if (!nombre || !descripcion || !username) {
-        return ApiResponse.sendErrorResponse(res, 400, "Datos de género inválidos")
-    }
-
     try {
+        if (!nombre || !descripcion || !username) {
+        //return ApiResponse.sendErrorResponse(res, 400, "Datos de género inválidos")
+            throw new ErrorClasses.Error400()
+        }
+
         const userRepo = UserRepository.getInstance();
         await userRepo.obtenerUsuario(username);
     
@@ -45,12 +48,11 @@ async function listarGeneros(req, res) {
 async function obtenerGenero(req, res) {
     const nombreReq = req.body.nombre
     const usernameReq = req.body.username
-
-    if (!nombreReq || !usernameReq) {
-      return ApiResponse.sendErrorResponse(res, 400, "Datos de género inválidos")
-    }
-
     try {
+        if (!nombreReq || !usernameReq) {
+            throw new ErrorClasses.Error400()
+        }
+
         const genreRepo = GenreRepository.getInstance();
         const genero = await genreRepo.obtenerGenero({
             nombre: nombreReq,
@@ -66,11 +68,11 @@ async function borrarGenero(req, res) {
     const nombreReq = req.body.nombre
     const usernameReq = req.body.username
 
-    if (!nombreReq || !usernameReq) {
-        return ApiResponse.sendErrorResponse(res, 400, "Datos de género inválidos")
-    }
-
     try {
+        if (!nombreReq || !usernameReq) {
+            throw new ErrorClasses.Error400()
+        }
+
         const genreRepo = GenreRepository.getInstance();
         const generoBorrado = await genreRepo.borrar({
                 nombre: nombreReq,

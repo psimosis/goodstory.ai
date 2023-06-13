@@ -1,7 +1,6 @@
 const GenreDAO = require("../dao/genreDao");
 const Usuario = require('../models/usuario')
-const ClientError = require('../utils/error');
-const ServerError = require('../utils/error');
+const ErrorClasses = require('../utils/error');
 
 class GenreRepository {
     constructor() {
@@ -14,12 +13,8 @@ class GenreRepository {
             const generoCreado = await this.db.crear(genero);
             return generoCreado
             //if genero ya esta creado, throw new ClientError
-        } catch(e){
-            if (e instanceof ClientError) {
-                throw e;
-            } else {
-                throw new ServerError("Internal server error", 500);
-            }
+        } catch(error){
+            throw error
         }
     }
 
@@ -35,16 +30,11 @@ class GenreRepository {
             const generoObtenido = await this.db.obtener(genero);
 
             if (generoObtenido == null){
-                throw new ClientError("Genre not found", 404);
+                throw new ErrorClasses.Error404()
             }
             return generoObtenido
-        } catch(e){
-            //throw new ServerError(e.message, e.statusCode);
-            if (e instanceof ClientError) {
-                throw e;
-            } else {
-                throw new ServerError("Internal server error", 500);
-            }
+        } catch(error){
+            throw error
         }
     }
 
@@ -60,12 +50,8 @@ class GenreRepository {
             console.log("Género borrado: " + generoBorrado.value)
             
             return generoBorrado.value
-        } catch(e) {
-            if (e instanceof ClientError) {
-                throw e;
-            } else {
-                throw new ServerError("Internal server error", 500);
-            }
+        } catch(error) {
+            throw error
         }
     }
 
