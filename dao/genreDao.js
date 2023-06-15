@@ -25,45 +25,29 @@ module.exports = class GenreDAO {
         }
     }
     
-    listar() {
+    listar(username) {
         try{
-            return this.db.collection('genres').find().toArray();
+            return this.db.collection('genres').find({username: username}).toArray();
         } catch (e) {
             throw new ErrorClasses.Error500();
         }
         
     }
 
-    obtener(genero) {
+    obtener(id, username) {
         try{
             return this.db.collection('genres').findOne({
-                nombre: genero.nombre,
-                username: genero.username
+                    id: id,
+                    username: username
             });
         } catch (e) {
             throw new ErrorClasses.Error500();
         }
     }
 
-    update(genero){
+    borrar(id, username) {
         try{
-            return this.db.collection('genres').updateOne({ "username": user.username },
-            { $set: {
-              "nombre": user.nombre,
-              "apellido": user.apellido,
-              "username": user.username,
-              "password": user.password,
-              "token": user.token
-                }
-            })
-        } catch (e) {
-            throw new ErrorClasses.Error500();
-        }
-    }
-
-    borrar(genero) {
-        try{
-            return this.db.collection('genres').findOneAndDelete({nombre: genero.nombre, username: genero.username})
+            return this.db.collection('genres').findOneAndDelete({id: id, username: username})
         } catch (e) {
             throw new ErrorClasses.Error500();
         }

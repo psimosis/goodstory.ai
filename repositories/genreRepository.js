@@ -18,16 +18,16 @@ class GenreRepository {
         }
     }
 
-    async listar() {
+    async listar(username) {
         await this.db.conectar();
-        const lista = await this.db.listar();
+        const lista = await this.db.listar(username);
         return lista;
     }
 
-    async obtenerGenero(genero) {
+    async obtenerGenero(id, username) {
         try {
             await this.db.conectar();
-            const generoObtenido = await this.db.obtener(genero);
+            const generoObtenido = await this.db.obtener(id, username);
 
             if (generoObtenido == null){
                 throw new ErrorClasses.Error404()
@@ -38,15 +38,11 @@ class GenreRepository {
         }
     }
 
-    async borrar(genero) {
+    async borrar(id, username) {
         try{
-            const generoBuscado = await this.obtenerGenero({
-                nombre: genero.nombre,
-                username: genero.username
-            })
+            const generoBuscado = await this.obtenerGenero(id, username)
             await this.db.conectar();
-            const generoBorrado = await this.db.borrar(generoBuscado)
-            
+            const generoBorrado = await this.db.borrar(id, username)
             return generoBorrado.value
         } catch(error) {
             throw error
