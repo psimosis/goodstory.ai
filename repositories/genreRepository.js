@@ -1,4 +1,4 @@
-const GenreDAO = require("../dao/genreDao");
+const GenreDAO = require("../dao/genreDAO");
 const Usuario = require('../models/usuario')
 const ErrorClasses = require('../utils/error');
 
@@ -46,8 +46,6 @@ class GenreRepository {
             })
             await this.db.conectar();
             const generoBorrado = await this.db.borrar(generoBuscado)
-            console.log("Género borrado: " + generoBorrado)
-            console.log("Género borrado: " + generoBorrado.value)
             
             return generoBorrado.value
         } catch(error) {

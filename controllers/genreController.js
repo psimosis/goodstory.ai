@@ -8,8 +8,6 @@ const ErrorClasses = require('../utils/error');
 
 
 async function crearGenero(req, res) {
-
-  console.log("hola")
     const nombre = req.body.nombre
     const descripcion = req.body.descripcion
     const username = req.body.username
@@ -78,7 +76,6 @@ async function borrarGenero(req, res) {
                 nombre: nombreReq,
                 username: usernameReq
         })
-        console.log("Género borrado: " + generoBorrado)
         return ApiResponse.sendSuccessResponse(res, 204, {
             status: "Género eliminado",
             genero: generoBorrado

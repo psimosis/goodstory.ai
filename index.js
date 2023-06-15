@@ -1,9 +1,9 @@
 const { crearUsuarioController, listarUsuarios, obtenerUsuario, login }  = require('./controllers/userController.js')
 const { userDataValidate, userLoginDataValidate } = require("./validations/user.validation.js");
-//const { crearGenero } = require("./controllers/generoController.js");
 const { sessionTokenValidate } = require("./controllers/authorizationController.js");
 const { crearGenero, listarGeneros, obtenerGenero, borrarGenero } = require("./controllers/genreController.js")
 const { crearHabilidadController, listarHabilidadesController, obtenerHabilidadController, borrarHabilidadController } = require("./controllers/habilityController.js")
+const { crearPersonajeController, obtenerPersonajeController, listarPersonajesController, borrarPersonajeController } = require("./controllers/characterController.js")
 
 const express = require('express')
 const app = express()
@@ -14,6 +14,16 @@ app.use(express.json());
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
+
+// Characters methods
+app.post('/character', sessionTokenValidate, crearPersonajeController)
+
+app.get('/character', sessionTokenValidate, obtenerPersonajeController)
+
+app.get('/characters', sessionTokenValidate, listarPersonajesController)
+
+app.delete('/character',sessionTokenValidate, borrarPersonajeController)
+
 
 // User methods
 

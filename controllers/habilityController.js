@@ -2,9 +2,9 @@ const HabilityRepository = require('../repositories/habilityRepository')
 const Habilidad = require('../models/habilidad')
 
 
-async function crearHabilidadController (req, res) {
+async function crearHabilidadController(req, res) {
+
     const u = req.body
-    console.log(u);
     const habilidad = new Habilidad(u.tipo, u.valor);
     const repo = HabilityRepository.getInstance();
     repo.crearHabilidad(habilidad);
@@ -49,6 +49,7 @@ async function listarHabilidadesController(req, res) {
     try {
         const repo = HabilityRepository.getInstance();
         const lista = await repo.listarHabilidades();
+        
         res.status(200)
         res.send(lista)
     } catch(e) {
