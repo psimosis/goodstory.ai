@@ -23,4 +23,16 @@
       }
     }
     
-    getChatGptResponse('Necesito una historia de 3 renglones');
+    getChatGptResponse('Necesito que me hagas una historia de no mas de 15 renglones, a partir de un JSON. Este JSON contendra informacion acerca de titulo, genero \
+    personajes, habilidad de personajes y una pequena descripcion  de la historia pedida. \
+    Este seria el JSON: \
+    {\
+      "title": "La historia de Juan el barrendero ", \
+      "descripcion": "La historia debe estar narrada por Jorge Rial, y debe mencionarse en la historia", \
+      "genre": "Terror psicologico",  \
+      "characters": [ \
+          "Juan el barrendero ", \
+          "Pedro el ayudante",\
+          "Guido el asesino", \
+      ]\
+  }');
