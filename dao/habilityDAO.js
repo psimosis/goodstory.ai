@@ -11,26 +11,26 @@ module.exports = class HabilityDAO {
         try {
           await this.client.connect()
         } catch (e) {
-          throw new Error(e.message)
+            throw new ErrorClasses.Error500();
         }
     
         this.db = this.client.db(this.dbName)
     }
     
-    listar() {
+    listar(username) {
         try{
-            return this.db.collection('habilities').find().toArray();
+            return this.db.collection('habilities').find({username: username}).toArray();
         } catch (e) {
-            throw new Error(e.message)
+            throw new ErrorClasses.Error500();
         }
         
     }
 
-    obtener(id) {
+    obtener(id, username) {
         try{
-            return this.db.collection('habilities').findOne({tipo: id});
+            return this.db.collection('habilities').findOne({tipo: id, username: username});
         } catch (e) {
-            throw new Error(e.message)
+            throw new ErrorClasses.Error500();
         }
     }
 
@@ -38,16 +38,16 @@ module.exports = class HabilityDAO {
         try{
             return this.db.collection('habilities').insertOne(habilidad);
         } catch (e) {
-            throw new Error(e.message)
+            throw new ErrorClasses.Error500();
         }
     }
 
-    borrar(id) {
+    borrar(id, username) {
         try{
             console.log(id)
-            return this.db.collection('habilities').findOneAndDelete({tipo: id})
+            return this.db.collection('habilities').findOneAndDelete({tipo: id, username: username})
         } catch (e) {
-            throw new Error(e.message)
+            throw new ErrorClasses.Error500();
         }
     }
 }

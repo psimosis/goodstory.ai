@@ -1,6 +1,6 @@
 const HabilityDAO = require("../dao/habilityDAO");
 const Habilidad = require('../models/habilidad')
-const DBError = require('../utils/error');
+const ErrorClasses = require('../utils/error');
 
 class HabilityRepository {
 
@@ -17,10 +17,10 @@ class HabilityRepository {
         }
     }
 
-    async obtenerHabilidad(habilidad){
+    async obtenerHabilidad(id, username){
         try {
             await this.db.conectar();
-            const hability = await this.db.obtener(habilidad.tipo);
+            const hability = await this.db.obtener(id, username);
             if(hability == null){
                 throw new DBError("Hability not found", 500);
             }

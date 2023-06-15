@@ -5,7 +5,7 @@ const Habilidad = require('../models/habilidad')
 async function crearHabilidadController(req, res) {
 
     const u = req.body
-    const habilidad = new Habilidad(u.tipo, u.valor);
+    const habilidad = new Habilidad(u.tipo, u.descripcion);
     const repo = HabilityRepository.getInstance();
     repo.crearHabilidad(habilidad);
     res.status(200)
@@ -16,7 +16,7 @@ async function crearHabilidadController(req, res) {
 
 async function obtenerHabilidadController(req, res) {
     const reqTipo = req.body.tipo
-    const reqValor = req.body.valor
+    const reqValor = req.body.descripcion
 
     if (!reqTipo || !reqValor) {
         return res.status(400).json({
@@ -28,7 +28,7 @@ async function obtenerHabilidadController(req, res) {
         const repo = HabilityRepository.getInstance();
         const habilidad = await repo.obtenerHabilidad({
             tipo: reqTipo,
-            valor: reqValor
+            descripcion: reqValor
         })
         return res.status(200).json(habilidad);
     } catch(e) {

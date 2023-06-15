@@ -1,11 +1,14 @@
+const { v4: uuidv4 } = require('uuid');
+
+
 class historia {
-    constructor(id, descripcion, cantpersonajes, genero, personajes) {
-        this.id = id;
-        this.title = null;
+    constructor(title, descripcion, cantpersonajes, genero, personajes, username) {
+        this.id = uuidv4();
+        this.title = title;
         this.descripcion = descripcion;
-        this.cantpersonajes = cantpersonajes;
         this.genero = genero;
         this.personajes = personajes;
+        this.username = username
     }
     
 }
