@@ -1,90 +1,69 @@
 const HabilityRepository = require('../repositories/habilityRepository')
 const Habilidad = require('../models/habilidad')
-
+const ApiResponse = require('../helpers/ApiResponse')
 
 async function crearHabilidadController(req, res) {
-
-    const u = req.body
-    const habilidad = new Habilidad(u.tipo, u.descripcion);
-    const repo = HabilityRepository.getInstance();
-    repo.crearHabilidad(habilidad);
-    res.status(200)
-    res.json({
-        "status": "Hability Created"
-    }).send
+    try{
+        const u = req.body
+        const habilidad = new Habilidad(u.tipo, u.descripcion, req.username);
+        const repo = HabilityRepository.getInstance();
+        const habilidadCreada = await repo.crearHabilidad(habilidad);
+        console.log(habilidadCreada)
+        return ApiResponse.sendSuccessResponse(res, 200, "Habilidad creada")
+    }catch(e){
+        return ApiResponse.sendErrorResponse(res, e.statusCode, e.message)
+    }
 }
 
-async function obtenerHabilidadController(req, res) {
-    const reqTipo = req.body.tipo
-    const reqValor = req.body.descripcion
 
-    if (!reqTipo || !reqValor) {
-        return res.status(400).json({
-            "status": "Datos de habilidad inválidos"
-        });
+async function obtenerHabilidadController(req, res) {
+    const reqId = req.body.id
+    const reqUsername = req.username
+
+    if (!reqId) {
+        return ApiResponse.sendErrorResponse(res, 400, "Datos de habilidad inválidos")
     }
 
     try {
         const repo = HabilityRepository.getInstance();
-        const habilidad = await repo.obtenerHabilidad({
-            tipo: reqTipo,
-            descripcion: reqValor
-        })
-        return res.status(200).json(habilidad);
+        const habilidad = await repo.obtenerHabilidad(reqId, reqUsername)
+        return ApiResponse.sendSuccessResponse(res, 200, habilidad)
     } catch(e) {
-        if (e instanceof DBError) {
-            return res.status(e.statusCode).json({
-              "status": e.message
-            });
-          } else {
-            console.error(e);
-            return res.status(500).json({
-              "status": "Internal server error"
-            });
-          }
+        return ApiResponse.sendErrorResponse(res, e.statusCode, e.message)
     }
 }
 
 async function listarHabilidadesController(req, res) {
     try {
         const repo = HabilityRepository.getInstance();
-        const lista = await repo.listarHabilidades();
+        const lista = await repo.listarHabilidades(req.username);
         
-        res.status(200)
-        res.send(lista)
+        return ApiResponse.sendSuccessResponse(res, 200, lista)
     } catch(e) {
-        res.status(500)
-        res.json({
-            "status": "Internal server error"
-        }).send()
+        return ApiResponse.sendErrorResponse(res, e.statusCode, e.message)
     }
 }
 
 async function borrarHabilidadController(req, res) {
-    const reqTipo = req.body.tipo
-    const reqValor = req.body.valor
+    const reqId = req.body.id
+    const reqUsername = req.username
 
-    if (!reqTipo || !reqValor) {
-        return res.status(400).json({
-            "status": "Datos de habilidad inválidos"
-        });
+    if (!reqId) {
+        return ApiResponse.sendErrorResponse(res, 400, "Datos de habilidad inválidos")
     }
 
     try {
         const repo = HabilityRepository.getInstance();
-        const habilidadBorrada = await repo.borrar({
-                tipo: reqTipo,
-                valor: reqValor
-        })
+        await repo.obtenerHabilidad(reqId, reqUsername)
+
+        const habilidadBorrada = await repo.borrar(reqId, reqUsername)
         
-        return res.status(204).json({
+        return ApiResponse.sendSuccessResponse(res, 200, {
             status: "Habilidad eliminada",
-            genero: habilidadBorrada.tipo
-        });
+            genero: habilidadBorrada.value
+        })
     } catch (e) {
-        return res.status(500).json({
-            "status": e.message
-        });
+        return ApiResponse.sendErrorResponse(res, e.statusCode, e.message)
     }
 }
 

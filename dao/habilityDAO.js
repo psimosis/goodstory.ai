@@ -28,7 +28,7 @@ module.exports = class HabilityDAO {
 
     obtener(id, username) {
         try{
-            return this.db.collection('habilities').findOne({tipo: id, username: username});
+            return this.db.collection('habilities').findOne({id: id, username: username});
         } catch (e) {
             throw new ErrorClasses.Error500();
         }
@@ -45,7 +45,7 @@ module.exports = class HabilityDAO {
     borrar(id, username) {
         try{
             console.log(id)
-            return this.db.collection('habilities').findOneAndDelete({tipo: id, username: username})
+            return this.db.collection('habilities').findOneAndDelete({id: id, username: username})
         } catch (e) {
             throw new ErrorClasses.Error500();
         }
