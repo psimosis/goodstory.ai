@@ -1,7 +1,8 @@
 const HistoryRepository = require('../repositories/historyRepository')
-const GenreRepository = require("../repositories/genreRepository")
 const Historia = require('../models/historia')
 const ApiResponse = require('../helpers/ApiResponse')
+const {generarHistoriaService} = require('../services/historyService')
+
 
 async function crearHistoriaController(req, res) {
     try{
@@ -31,15 +32,9 @@ async function generarHistoriaController(req, res) {
             throw new ErrorClasses.Error400()
         }
 
-        const repo = HistoryRepository.getInstance();
-        const historiaCreada = await repo.generarHistoria(historiaId, req.username);
-
-        console.log(historiaCreada.genero)
-
-        const repoGenero = GenreRepository.getInstance();
-        const generoObtenido = await repoGenero.obtenerGenero(historiaCreada.genero, req.username);
-        console.log(generoObtenido)
-        return ApiResponse.sendSuccessResponse(res, 200, generoObtenido)
+        const resultado = generarHistoriaService(historiaId, req.username)
+        
+        return ApiResponse.sendSuccessResponse(res, 200, resultado)
     }catch(e){
         return ApiResponse.sendErrorResponse(res, e.statusCode, e.message)
     }

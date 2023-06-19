@@ -8,11 +8,19 @@ class Historia {
         this.id = uuidv4();
         this.title = title;
         this.descripcion = descripcion;
-        this.genero = genero;
-        this.personajes = personajes;
+        this.genero = null;
+        this.personajes = [];
         this.historia = null;
         
         this.username = username
+    }
+
+    setGenero(genero){
+      this.genero = genero;
+    }
+
+    setPersonajes(personajes){
+      this.personajes = personajes;
     }
 
     async getChatGptResponse(request) {
