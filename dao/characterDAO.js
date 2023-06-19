@@ -43,6 +43,22 @@ module.exports = class CharacterDAO {
         }
     }
 
+    update(id, username, personaje){
+        try{
+            return this.db.collection('characters').updateOne({ id: id, username: username },
+            { $set: {
+                "nombre": personaje.nombre,
+                "tipo" : personaje.tipo,
+                "descripcion": personaje.descripcion,
+                "edad": personaje.edad,
+                "habilidades": personaje.habilidades
+                }
+            })
+        } catch (e) {
+            throw new ErrorClasses.Error500();
+        }
+    }
+
     borrar(id, username) {
         try{
             return this.db.collection('characters').findOneAndDelete({id: id, username: username})

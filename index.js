@@ -3,7 +3,9 @@ const { userDataValidate, userLoginDataValidate } = require("./validations/user.
 const { sessionTokenValidate } = require("./controllers/authorizationController.js");
 const { crearGenero, listarGeneros, obtenerGenero, borrarGenero } = require("./controllers/genreController.js")
 const { crearHabilidadController, listarHabilidadesController, obtenerHabilidadController, borrarHabilidadController } = require("./controllers/habilityController.js")
-const { crearPersonajeController, obtenerPersonajeController, listarPersonajesController, borrarPersonajeController } = require("./controllers/characterController.js")
+const { crearPersonajeController, obtenerPersonajeController, 
+  listarPersonajesController, borrarPersonajeController,
+  anadirHabilidadController } = require("./controllers/characterController.js")
 
 const express = require('express')
 const app = express()
@@ -17,6 +19,8 @@ app.listen(port, () => {
 
 // Characters methods
 app.post('/character', sessionTokenValidate, crearPersonajeController)
+
+app.post('/character/hability', sessionTokenValidate, anadirHabilidadController)
 
 app.get('/character', sessionTokenValidate, obtenerPersonajeController)
 

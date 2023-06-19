@@ -4,21 +4,21 @@ const ErrorClasses = require('../utils/error');
 const ApiResponse = require('../helpers/ApiResponse');
 
 async function crearPersonajeController(req, res) {
-    console.log(req.username)
-    const body = req.body
-    const personaje = new Personaje(
-            body.nombre,
-            body.tipo,
-            body.descripcion,
-            body.edad,
-            req.username
-        );
-    const repo = CharacterRepository.getInstance();
-    repo.crearPersonaje(personaje);
-    res.status(200)
-    res.json({
-        "status": "Character created"
-    }).send
+    try {
+        const body = req.body
+        const personaje = new Personaje(
+                body.nombre,
+                body.tipo,
+                body.descripcion,
+                body.edad,
+                req.username
+            );
+        const repo = CharacterRepository.getInstance();
+        const res = repo.crearPersonaje(personaje);
+        return ApiResponse.sendSuccessResponse(res, 200, res)
+    } catch(e){
+        return ApiResponse.sendErrorResponse(res, e.statusCode, e.message)
+    }
 }
 
 async function obtenerPersonajeController(req, res) {
@@ -28,9 +28,7 @@ async function obtenerPersonajeController(req, res) {
     console.log(username)
 
     if (!personajeId || !username) {
-        return res.status(400).json({
-            "status": "Datos de personaje inválido"
-        });
+        throw new ErrorClasses.Error400()
     }
     try {
         const repo = CharacterRepository.getInstance();
@@ -41,18 +39,31 @@ async function obtenerPersonajeController(req, res) {
     }
 }
 
+async function anadirHabilidadController(req, res) {
+    try {
+        const id = req.body.id
+        const habilidad = req.body.habilidad
+        const repo = CharacterRepository.getInstance();
+        const resultado = await repo.anadirHabilidad(id, req.username, habilidad);
+
+        if(resultado.acknowledged == true){
+            return ApiResponse.sendSuccessResponse(res, 200, "Habilidad agregada")
+        }else{
+            return ApiResponse.sendErrorResponse(res, 500, "No se pudo actualizar")
+        }
+    } catch(e) {
+        return ApiResponse.sendErrorResponse(res, e.statusCode, e.message)
+    }
+}
+
 async function listarPersonajesController(req, res) {
     try {
         const repo = CharacterRepository.getInstance();
         const listaPersonajes = await repo.listarPersonajes(req.username);
         
-        res.status(200)
-        res.send(listaPersonajes)
+        return ApiResponse.sendSuccessResponse(res, 200, listaPersonajes)
     } catch(e) {
-        res.status(500)
-        res.json({
-            "status": "Internal server error"
-        }).send()
+        return ApiResponse.sendErrorResponse(res, e.statusCode, e.message)
     }
 }
 
@@ -60,9 +71,7 @@ async function borrarPersonajeController(req, res) {
     const id = req.body.id
 
     if (!id) {
-        return res.status(400).json({
-            "status": "Datos de personaje inválidos"
-        });
+        throw new ErrorClasses.Error400()
     }
 
     try {
@@ -74,10 +83,9 @@ async function borrarPersonajeController(req, res) {
             genero: personajeBorrado.value
         })
     } catch (e) {
-        return res.status(500).json({
-            "status": e.message
-        });
+        return ApiResponse.sendErrorResponse(res, e.statusCode, e.message)
     }
 }
 
-module.exports = { crearPersonajeController, obtenerPersonajeController, listarPersonajesController, borrarPersonajeController };
+module.exports = { crearPersonajeController, obtenerPersonajeController, 
+    listarPersonajesController, borrarPersonajeController, anadirHabilidadController };

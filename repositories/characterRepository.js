@@ -13,7 +13,24 @@ class CharacterRepository {
             await this.db.conectar();
             const personajeCreado = await this.db.crear(personaje);
         } catch(e){
-            throw new DBError(e.message(), 500);
+            throw e
+        }
+    }
+
+    async anadirHabilidad(id, username, habilidad){
+        try {
+            await this.db.conectar();
+            const personajeEncontrado = await this.db.obtener(id, username)
+
+            if(personajeEncontrado == null){
+                throw new ErrorClasses.Error404();
+            }
+
+            personajeEncontrado.habilidades.push(habilidad)
+
+            return this.db.update(id, username, personajeEncontrado)
+        } catch(e){
+            throw e
         }
     }
 
