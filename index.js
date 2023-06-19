@@ -6,6 +6,7 @@ const { crearHabilidadController, listarHabilidadesController, obtenerHabilidadC
 const { crearPersonajeController, obtenerPersonajeController, 
   listarPersonajesController, borrarPersonajeController,
   anadirHabilidadController } = require("./controllers/characterController.js")
+const {crearHistoriaController, generarHistoriaController} = require("./controllers/historyController.js")
 
 const express = require('express')
 const app = express()
@@ -16,6 +17,12 @@ app.use(express.json());
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
+
+// History methods
+
+app.post('/history', sessionTokenValidate, crearHistoriaController)
+
+app.post('/history/generate', sessionTokenValidate, generarHistoriaController)
 
 // Characters methods
 app.post('/character', sessionTokenValidate, crearPersonajeController)

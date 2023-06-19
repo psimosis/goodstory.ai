@@ -11,7 +11,8 @@ class CharacterRepository {
     async crearPersonaje(personaje){
         try {
             await this.db.conectar();
-            const personajeCreado = await this.db.crear(personaje);
+            console.log(personaje)
+            await this.db.crear(personaje);
         } catch(e){
             throw e
         }
@@ -69,8 +70,6 @@ class CharacterRepository {
             throw e;
         }
     }
-
-
 
     static getInstance() {
         if (!CharacterRepository.instance) {

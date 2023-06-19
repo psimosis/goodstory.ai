@@ -12,7 +12,7 @@ module.exports = class CharacterDAO {
         try {
           await this.client.connect()
         } catch (e) {
-          throw new Error(e.message)
+            throw new ErrorClasses.Error500();
         }
     
         this.db = this.client.db(this.dbName)
@@ -22,9 +22,8 @@ module.exports = class CharacterDAO {
         try{
             return this.db.collection('characters').find({username: username}).toArray();
         } catch (e) {
-            throw new Error(e.message)
+            throw new ErrorClasses.Error500();
         }
-        
     }
 
     obtener(id, username) {
@@ -39,7 +38,7 @@ module.exports = class CharacterDAO {
         try{
             return this.db.collection('characters').insertOne(personaje);
         } catch (e) {
-            throw new Error(e.message)
+            throw new ErrorClasses.Error500();
         }
     }
 

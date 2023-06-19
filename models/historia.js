@@ -2,22 +2,27 @@ const { v4: uuidv4 } = require('uuid');
 const { Configuration, OpenAIApi } = require('openai');
 require('dotenv').config()
 
-class historia {
+class Historia {
 
-    constructor(title, descripcion, genero, personajes, username, openai) {
+    constructor(title, descripcion, genero, personajes, username) {
         this.id = uuidv4();
         this.title = title;
         this.descripcion = descripcion;
         this.genero = genero;
         this.personajes = personajes;
         this.historia = null;
-        this.openAI = new OpenAIApi(configuration);;
+        
         this.username = username
     }
 
     async getChatGptResponse(request) {
+      const configuration = new Configuration({
+        apiKey: process.env.CODE,
+      });
+
+      const openAI = new OpenAIApi(configuration);;
         try {
-          const response = await openai.createChatCompletion({
+          const response = await openAI.createChatCompletion({
             model: 'gpt-3.5-turbo',
             messages: [{ role: 'user', content: request }],
           });
@@ -32,4 +37,4 @@ class historia {
 
 }
 
-module.exports = historia;
+module.exports = Historia;

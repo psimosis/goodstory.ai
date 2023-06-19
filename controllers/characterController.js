@@ -14,8 +14,8 @@ async function crearPersonajeController(req, res) {
                 req.username
             );
         const repo = CharacterRepository.getInstance();
-        const res = repo.crearPersonaje(personaje);
-        return ApiResponse.sendSuccessResponse(res, 200, res)
+        repo.crearPersonaje(personaje);
+        return ApiResponse.sendSuccessResponse(res, 200, "Personaje creado")
     } catch(e){
         return ApiResponse.sendErrorResponse(res, e.statusCode, e.message)
     }
@@ -25,7 +25,6 @@ async function obtenerPersonajeController(req, res) {
 
     const personajeId = req.body.id
     const username = req.username
-    console.log(username)
 
     if (!personajeId || !username) {
         throw new ErrorClasses.Error400()
