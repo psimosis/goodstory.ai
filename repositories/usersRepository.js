@@ -1,6 +1,6 @@
 const UserDAO = require("../dao/userDAO");
 const Usuario = require('../models/usuario')
-const DBError = require('../utils/error');
+const ErrorClasses = require('../utils/error');
 
 class UserRepository {
 
@@ -12,32 +12,27 @@ class UserRepository {
         try {
             await this.db.conectar();
             const userDB = await this.db.crear(user);
-            console.log(userDB);
         } catch(e){
-            
+            throw e
         }
     }
 
     async obtenerUsuario(username){
         try {
             await this.db.conectar();
-            console.log(username);
             const user = await this.db.obtener(username);
-            console.log(user);
-
             if(user == null){
-                throw new DBError("User not found", 500);
+                throw new ErrorClasses.Error404()
             }
             return user;
         } catch(e){
-            throw new DBError(e.message, e.statusCode);
+            throw e
         }
     }
 
     async listarUsuarios(){
             await this.db.conectar();
             const lista = await this.db.listar();
-            console.log(lista)
             return lista;
     }
 
@@ -54,22 +49,20 @@ class UserRepository {
             const result = await this.db.update(userDb);
     
         } catch(e){
-
+            throw e
         }
     }
 
     async getUsrSessionToken(valToken){
         try {
             await this.db.conectar();
-            console.log("El token para obtener el usuario en el repositorio es: " + valToken);
             const user = await this.db.obtenerConToken(valToken);
-            console.log("El usuario encontrado es: " + user);
             //if(user == null){
             //    throw new DBError("User not found", 500);
             //}
             return user;
         } catch(e){
-            throw new DBError(e.message, e.statusCode);
+            throw e
         }
     }
 

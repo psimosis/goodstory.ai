@@ -1,4 +1,5 @@
 const UserRepository = require('../repositories/usersRepository')
+const ErrorClasses = require('../utils/error');
 
 const userDataValidate = (req, res, next) => {
   if (!req.body.nombre) {
@@ -53,12 +54,15 @@ const userLoginDataValidate = (req, res, next) => {
 
 async function userValidateCredentials (username, password) {
   const repo = UserRepository.getInstance();
-  const user = await repo.obtenerUsuario(username)
-  if (user.password == password){
-    return true;
-  } else{
-    return false;
-  } 
+  try {
+    const user = await repo.obtenerUsuario(username)
+    
+    if (user.password != password){
+      throw new ErrorClasses.Error401();
+    }
+  } catch(e) {
+      throw e
+  }
 }
 
 module.exports = { userDataValidate, userLoginDataValidate, userValidateCredentials };

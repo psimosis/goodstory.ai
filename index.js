@@ -1,8 +1,12 @@
-const { crearUsuarioController, listarUsuarios, obtenerUsusario, login }  = require('./controllers/userController.js')
+const { crearUsuarioController, listarUsuarios, obtenerUsuario, login }  = require('./controllers/userController.js')
 const { userDataValidate, userLoginDataValidate } = require("./validations/user.validation.js");
-//const { crearGenero } = require("./controllers/generoController.js");
 const { sessionTokenValidate } = require("./controllers/authorizationController.js");
-const { crearGenero, listarGeneros, obtenerGenero, borrarGenero} = require("./controllers/genreController.js")
+const { crearGenero, listarGeneros, obtenerGenero, borrarGenero } = require("./controllers/genreController.js")
+const { crearHabilidadController, listarHabilidadesController, obtenerHabilidadController, borrarHabilidadController } = require("./controllers/habilityController.js")
+const { crearPersonajeController, obtenerPersonajeController, 
+  listarPersonajesController, borrarPersonajeController,
+  anadirHabilidadController } = require("./controllers/characterController.js")
+const {crearHistoriaController, generarHistoriaController} = require("./controllers/historyController.js")
 
 const express = require('express')
 const app = express()
@@ -14,41 +18,36 @@ app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
 
-app.post('/user', (req, res) => {
-    
-    const u = req.body
-    console.log(u);
-    const usuarioCreado = new Usuario(u.nombre, u.apellido, u.username, u.password);
-    listaUsuarios.push(usuarioCreado)
-    res.send(`Hola ${usuarioCreado.nombre}, creamos tu usuario ${usuarioCreado.username}.`)
-})
+app.get('/character', sessionTokenValidate, obtenerPersonajeController)
 
-// app.get('/user/{id}', (req, res) => {
-//     const u = req.body
-//     listaUsuarios.push(new Usuario(1, p.name, p.tipo, p.descripcion, p.edad))
-//     res.send(`Este es el personaje que creaste ${p.name}`)
-// })
+app.get('/characters', sessionTokenValidate, listarPersonajesController)
 
-app.get('/login', (req, res) => {
-    const user = req.body
-
-    //Hacer validaciones de usuario/pass
-
-    const tokgen2 = new TokenGenerator(256, TokenGenerator.BASE62);
-    const token = tokgen2.generate();
+app.delete('/character',sessionTokenValidate, borrarPersonajeController)
 
     // Agregar token al usuario 
 
 app.get('/users', sessionTokenValidate, listarUsuarios)
 
-app.get('/user', obtenerUsusario)
+app.get('/user', obtenerUsuario)
 
 app.post('/login', userLoginDataValidate, login)
 
-app.post('/genre', crearGenero)
+// Habilities methods
 
-app.get('/genres', listarGeneros)
+app.post('/hability', sessionTokenValidate, crearHabilidadController)
 
-app.get('/genre', obtenerGenero)
+app.get('/hability', sessionTokenValidate, obtenerHabilidadController)
 
-app.delete('/genre', borrarGenero)
+app.get('/habilities', sessionTokenValidate, listarHabilidadesController)
+
+app.delete('/hability',sessionTokenValidate, borrarHabilidadController)
+
+// Genres methods
+
+app.post('/genre', sessionTokenValidate, crearGenero)
+
+app.get('/genres', sessionTokenValidate, listarGeneros)
+
+app.get('/genre', sessionTokenValidate, obtenerGenero)
+
+app.delete('/genre', sessionTokenValidate, borrarGenero)

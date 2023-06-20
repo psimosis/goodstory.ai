@@ -3,19 +3,21 @@ const Genero = require("../models/genero")
 const GenreRepository = require("../repositories/genreRepository")
 const DBError = require('../utils/error');
 const UserRepository = require('../repositories/usersRepository')
+const ApiResponse = require('../helpers/ApiResponse')
+const ErrorClasses = require('../utils/error');
+
 
 async function crearGenero(req, res) {
     const nombre = req.body.nombre
     const descripcion = req.body.descripcion
-    const username = req.body.username
-
-    if (!nombre || !descripcion || !username) {
-        return res.status(400).json({
-            "status": "Datos de género inválidos"
-        });
-    }
+    const username = req.username
 
     try {
+        if (!nombre || !descripcion || !username) {
+        //return ApiResponse.sendErrorResponse(res, 400, "Datos de género inválidos")
+            throw new ErrorClasses.Error400()
+        }
+
         const userRepo = UserRepository.getInstance();
         await userRepo.obtenerUsuario(username);
     
@@ -23,93 +25,55 @@ async function crearGenero(req, res) {
         const genreRepo = GenreRepository.getInstance();
         await genreRepo.crear(genero);
     
-        return res.status(201).json({
-          "status": "Genre Created"
-        });
-      } catch (error) {
-        if (error instanceof DBError) {
-          return res.status(403).json({
-            "status": error.message
-          });
-        } else {
-          console.error(error);
-          return res.status(500).json({
-            "status": "Internal server error"
-          });
-        }
+        return ApiResponse.sendSuccessResponse(res, 201, {
+          status: "Genre created"
+        })
+      } catch (e) {
+        return ApiResponse.sendErrorResponse(res, e.statusCode, e.message)
       }
 }
 
 async function listarGeneros(req, res) {
     try {
         const repo = GenreRepository.getInstance();
-        const lista = await repo.listar();
-        res.status(200)
-        res.send(lista)
+        const lista = await repo.listar(req.username);
+        return ApiResponse.sendSuccessResponse(res, 200, lista)
     } catch(e) {
-        res.status(500)
-        res.json({
-            "status": "Internal server error"
-        }).send()
+      return ApiResponse.sendErrorResponse(res, e.statusCode, e.message)
     }
 }
 
 async function obtenerGenero(req, res) {
-    const nombreReq = req.body.nombre
-    const usernameReq = req.body.username
-
-    if (!nombreReq || !usernameReq) {
-        return res.status(400).json({
-            "status": "Datos de género inválidos"
-        });
-    }
-
+    const id = req.body.id
     try {
+        if (!id) {
+            throw new ErrorClasses.Error400()
+        }
+
         const genreRepo = GenreRepository.getInstance();
-        const genero = await genreRepo.obtenerGenero({
-            nombre: nombreReq,
-            username: usernameReq
-        })
-        return res.status(200).json(genero);
+        const genero = await genreRepo.obtenerGenero(id, req.username)
+        return ApiResponse.sendSuccessResponse(res, 200, genero)
     } catch(e) {
-        if (e instanceof DBError) {
-            return res.status(e.statusCode).json({
-              "status": e.message
-            });
-          } else {
-            console.error(e);
-            return res.status(500).json({
-              "status": "Internal server error"
-            });
-          }
+        return ApiResponse.sendErrorResponse(res, e.statusCode, e.message)
     }
 }
 
 async function borrarGenero(req, res) {
-    const nombreReq = req.body.nombre
-    const usernameReq = req.body.username
-
-    if (!nombreReq || !usernameReq) {
-        return res.status(400).json({
-            "status": "Datos de género inválidos"
-        });
-    }
+    const id = req.body.id
 
     try {
+        if (!id) {
+            throw new ErrorClasses.Error400()
+        }
+
         const genreRepo = GenreRepository.getInstance();
-        const generoBorrado = await genreRepo.borrar({
-                nombre: nombreReq,
-                username: usernameReq
-        })
-        
-        return res.status(204).json({
+        const generoBorrado = await genreRepo.borrar(id, req.username)
+        return ApiResponse.sendSuccessResponse(res, 200, {
             status: "Género eliminado",
-            genero: generoBorrado.value
-        });
+            genero: generoBorrado
+        })
     } catch (e) {
-        return res.status(500).json({
-            "status": e.message
-        });
+        return ApiResponse.sendErrorResponse(res, e.statusCode, e.message)
     }
 }
 

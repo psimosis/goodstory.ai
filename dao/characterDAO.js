@@ -1,7 +1,7 @@
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const ErrorClasses = require('../utils/error');
 
-module.exports = class UserDAO {
+module.exports = class CharacterDAO {
     constructor() {
         const uri = "mongodb+srv://lucasmfunes:mtEJ7j524rkbAuRF@ort-tp2.pkd5kbz.mongodb.net/?retryWrites=true&w=majority";
         this.client = new MongoClient(uri)
@@ -14,44 +14,43 @@ module.exports = class UserDAO {
         } catch (e) {
             throw new ErrorClasses.Error500();
         }
+    
         this.db = this.client.db(this.dbName)
     }
     
-    listar() {
+    listar(username) {
         try{
-            return this.db.collection('users').find().toArray();
-        } catch (e) {
-            throw new ErrorClasses.Error500();
-        }
-        
-    }
-
-    obtener(username) {
-        try{
-            return this.db.collection('users').findOne({username: username});
+            return this.db.collection('characters').find({username: username}).toArray();
         } catch (e) {
             throw new ErrorClasses.Error500();
         }
     }
 
-    obtenerConToken(token) {
+    obtener(id, username) {
         try{
-            console.log("El token del usuario en DAO a obtener es: " + token);
-            return this.db.collection('users').findOne({token: token});
+            return this.db.collection('characters').findOne({id: id, username: username})
         } catch (e) {
             throw new ErrorClasses.Error500();
         }
     }
 
-    update(user){
+    crear(personaje) {
         try{
-            return this.db.collection('users').updateOne({ "username": user.username },
+            return this.db.collection('characters').insertOne(personaje);
+        } catch (e) {
+            throw new ErrorClasses.Error500();
+        }
+    }
+
+    update(id, username, personaje){
+        try{
+            return this.db.collection('characters').updateOne({ id: id, username: username },
             { $set: {
-              "nombre": user.nombre,
-              "apellido": user.apellido,
-              "username": user.username,
-              "password": user.password,
-              "token": user.token
+                "nombre": personaje.nombre,
+                "tipo" : personaje.tipo,
+                "descripcion": personaje.descripcion,
+                "edad": personaje.edad,
+                "habilidades": personaje.habilidades
                 }
             })
         } catch (e) {
@@ -59,9 +58,9 @@ module.exports = class UserDAO {
         }
     }
 
-    crear(user) {
+    borrar(id, username) {
         try{
-            return this.db.collection('users').insertOne(user);
+            return this.db.collection('characters').findOneAndDelete({id: id, username: username})
         } catch (e) {
             throw new ErrorClasses.Error500();
         }

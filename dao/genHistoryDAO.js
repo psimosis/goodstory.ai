@@ -1,12 +1,14 @@
 const { MongoClient } = require('mongodb');
 const ErrorClasses = require('../utils/error');
 
-module.exports = class GenreDAO {
+module.exports = class GenHistoryDAO {
+
     constructor() {
         const uri = "mongodb+srv://lucasmfunes:mtEJ7j524rkbAuRF@ort-tp2.pkd5kbz.mongodb.net/?retryWrites=true&w=majority";
         this.client = new MongoClient(uri)
         this.dbName = 'goodstory'
     }
+
 
     async conectar() {
         try {
@@ -14,45 +16,23 @@ module.exports = class GenreDAO {
         } catch (e) {
             throw new ErrorClasses.Error500();
         }
+    
         this.db = this.client.db(this.dbName)
     }
 
-    crear(genero) {
+    crear(genHist) {
         try{
-            return this.db.collection('genres').insertOne(genero);
+            return this.db.collection('generated-histories').insertOne(genHist);
         } catch (e) {
             throw new ErrorClasses.Error500();
         }
-    }
-    
-    listar(username) {
-        try{
-            return this.db.collection('genres').find({username: username}).toArray();
-        } catch (e) {
-            throw new ErrorClasses.Error500();
-        }
-        
     }
 
     obtener(id, username) {
         try{
-            return this.db.collection('genres').findOne({
-                    id: id,
-                    username: username
-            });
+            return this.db.collection('histories').findOne({id: id, username: username})
         } catch (e) {
             throw new ErrorClasses.Error500();
         }
     }
-
-    borrar(id, username) {
-        try{
-            return this.db.collection('genres').findOneAndDelete({id: id, username: username})
-        } catch (e) {
-            throw new ErrorClasses.Error500();
-        }
-    }
-    
 }
-
-

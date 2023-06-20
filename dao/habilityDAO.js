@@ -1,7 +1,6 @@
-const { MongoClient } = require('mongodb');
-const ErrorClasses = require('../utils/error');
+const { MongoClient, ServerApiVersion } = require('mongodb');
 
-module.exports = class GenreDAO {
+module.exports = class HabilityDAO {
     constructor() {
         const uri = "mongodb+srv://lucasmfunes:mtEJ7j524rkbAuRF@ort-tp2.pkd5kbz.mongodb.net/?retryWrites=true&w=majority";
         this.client = new MongoClient(uri)
@@ -14,20 +13,13 @@ module.exports = class GenreDAO {
         } catch (e) {
             throw new ErrorClasses.Error500();
         }
+    
         this.db = this.client.db(this.dbName)
-    }
-
-    crear(genero) {
-        try{
-            return this.db.collection('genres').insertOne(genero);
-        } catch (e) {
-            throw new ErrorClasses.Error500();
-        }
     }
     
     listar(username) {
         try{
-            return this.db.collection('genres').find({username: username}).toArray();
+            return this.db.collection('habilities').find({username: username}).toArray();
         } catch (e) {
             throw new ErrorClasses.Error500();
         }
@@ -36,10 +28,15 @@ module.exports = class GenreDAO {
 
     obtener(id, username) {
         try{
-            return this.db.collection('genres').findOne({
-                    id: id,
-                    username: username
-            });
+            return this.db.collection('habilities').findOne({id: id, username: username});
+        } catch (e) {
+            throw new ErrorClasses.Error500();
+        }
+    }
+
+    crear(habilidad) {
+        try{
+            return this.db.collection('habilities').insertOne(habilidad);
         } catch (e) {
             throw new ErrorClasses.Error500();
         }
@@ -47,12 +44,11 @@ module.exports = class GenreDAO {
 
     borrar(id, username) {
         try{
-            return this.db.collection('genres').findOneAndDelete({id: id, username: username})
+            return this.db.collection('habilities').findOneAndDelete({id: id, username: username})
         } catch (e) {
             throw new ErrorClasses.Error500();
         }
     }
-    
 }
 
 
