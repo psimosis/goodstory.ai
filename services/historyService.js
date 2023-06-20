@@ -9,6 +9,11 @@ const Habilidad = require('../models/habilidad')
 const ApiResponse = require('../helpers/ApiResponse')
 
 async function generarHistoriaService(historiaId, username) {
+    const prompt =
+    `Hola, necesitamos que nos crees una historia a partir de un JSON que te enviaremos.
+    Cada atributo del JSON, corresponde al titulo de la historia, su genero, su descripcion, sus personajes y caracteristicas.
+    La historia no debe tener mas de 1000 palabras.
+    Este es el JSON: `;
     try {
         
         const repoHistoria = HistoryRepository.getInstance();
@@ -35,17 +40,21 @@ async function generarHistoriaService(historiaId, username) {
                 for (let index = 0; index < personajeDB.habilidades.length; index++) {
                     const h = personajeDB.habilidades[index];
                     const habilidadDB = await repoHabilidad.obtenerHabilidad(h, username)
-                    console.log(habilidadDB)
                     personajeA.agregarHabilidad(new Habilidad(habilidadDB.tipo, habilidadDB.descripcion))
                 }
             }
             historiaAGenerar.personajes.push(personajeA)
         }
+        const jsonHist = JSON.stringify(historiaAGenerar)
+        const requestGPT = prompt + jsonHist
 
-        return historiaAGenerar
+        const historiaGenerada = await historiaAGenerar.getChatGptResponse(requestGPT)
+        return historiaGenerada
     }catch(e){
        throw e
     }
 }
+
+
 
 module.exports = { generarHistoriaService }

@@ -32,7 +32,7 @@ async function generarHistoriaController(req, res) {
             throw new ErrorClasses.Error400()
         }
 
-        const resultado = generarHistoriaService(historiaId, req.username)
+        const resultado = await generarHistoriaService(historiaId, req.username)
         
         return ApiResponse.sendSuccessResponse(res, 200, resultado)
     }catch(e){
