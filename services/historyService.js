@@ -38,6 +38,7 @@ async function generarHistoriaService(historiaId, username) {
         historiaAGenerar.setGenero(new Genero(generoObtenido.nombre,
             generoObtenido.descripcion));
 
+        console.log("Obteniendo recursos...")
         for (let index = 0; index < historiaCreada.personajes.length; index++) {
             const p = historiaCreada.personajes[index];
             const personajeDB = await repoPersonaje.obtenerPersonaje(p, username)
@@ -53,6 +54,8 @@ async function generarHistoriaService(historiaId, username) {
             }
             historiaAGenerar.personajes.push(personajeA)
         }
+
+        console.log("Generando historia...")
         const jsonHist = JSON.stringify(historiaAGenerar)
         const requestGPT = prompt + jsonHist
 

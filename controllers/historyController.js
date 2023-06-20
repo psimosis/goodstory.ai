@@ -16,8 +16,8 @@ async function crearHistoriaController(req, res) {
             );
 
         const repo = HistoryRepository.getInstance();
-        const historiaCreada = await repo.crearHistoria(historia);
-        return ApiResponse.sendSuccessResponse(res, 200, historiaCreada.id)
+        const historiaCreadaId = await repo.crearHistoria(historia);
+        return ApiResponse.sendSuccessResponse(res, 200, historiaCreadaId)
     }catch(e){
         return ApiResponse.sendErrorResponse(res, e.statusCode, e.message)
     }

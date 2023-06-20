@@ -4,13 +4,18 @@ require('dotenv').config()
 
 class Historia {
 
-    constructor(title, descripcion, username) {
+    constructor(title, descripcion, genero, personajes, username) {
         this.id = uuidv4();
         this.title = title;
         this.descripcion = descripcion;
-        this.genero = null;
-        this.personajes = [];
-        this.historia = null;
+        
+        if(genero == null || genero == undefined || personajes == null || personajes == undefined){
+          this.genero = null;
+          this.personajes = [];
+        }else{
+          this.genero = genero;
+          this.personajes = personajes;
+        }
         
         this.username = username
     }

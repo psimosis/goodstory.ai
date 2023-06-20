@@ -1,4 +1,5 @@
 const CharacterRepository = require('../repositories/characterRepository')
+const HabilityRepository = require('../repositories/habilityRepository')
 const Personaje = require('../models/personaje')
 const ErrorClasses = require('../utils/error');
 const ApiResponse = require('../helpers/ApiResponse');
@@ -43,6 +44,13 @@ async function anadirHabilidadController(req, res) {
         const id = req.body.id
         const habilidad = req.body.habilidad
         const repo = CharacterRepository.getInstance();
+        const habRepo = HabilityRepository.getInstance();
+
+        const habEncontrada = await habRepo.obtenerHabilidad(habilidad, req.username)
+        if(habEncontrada == null || habEncontrada == undefined){
+            throw new ErrorClasses.Error400()
+        }
+
         const resultado = await repo.anadirHabilidad(id, req.username, habilidad);
 
         if(resultado.acknowledged == true){

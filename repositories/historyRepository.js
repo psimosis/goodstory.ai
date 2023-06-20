@@ -10,8 +10,11 @@ class HistoryRepository {
         try {
             await this.db.conectar();
             const historiaCreada = await this.db.crear(historia);
-            return historiaCreada
-            //if historia ya esta creado, throw new ClientError
+            if(historiaCreada.acknowledged == true){
+                return historia.id
+            } else{
+                throw new ErrorClasses.Error500()
+            }
         } catch(error){
             throw error
         }
