@@ -4,7 +4,7 @@ require('dotenv').config()
 
 class Historia {
 
-    constructor(title, descripcion, genero, personajes, username) {
+    constructor(title, descripcion, username) {
         this.id = uuidv4();
         this.title = title;
         this.descripcion = descripcion;
@@ -35,7 +35,6 @@ class Historia {
             messages: [{ role: 'user', content: request }],
           });
       
-          console.log(response.data.choices[0].message.content);
           return response.data.choices[0].message.content;
         } catch (err) {
           console.log('Error: ' + err);

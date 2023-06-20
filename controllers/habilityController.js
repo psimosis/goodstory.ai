@@ -8,7 +8,6 @@ async function crearHabilidadController(req, res) {
         const habilidad = new Habilidad(u.tipo, u.descripcion, req.username);
         const repo = HabilityRepository.getInstance();
         const habilidadCreada = await repo.crearHabilidad(habilidad);
-        console.log(habilidadCreada)
         return ApiResponse.sendSuccessResponse(res, 200, "Habilidad creada")
     }catch(e){
         return ApiResponse.sendErrorResponse(res, e.statusCode, e.message)

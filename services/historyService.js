@@ -1,11 +1,18 @@
+// Repos
 const HistoryRepository = require('../repositories/historyRepository')
 const GenreRepository = require("../repositories/genreRepository")
 const CharacterRepository = require("../repositories/characterRepository")
 const HabilityRepository = require("../repositories/habilityRepository")
+const GenHistoryRepository = require("../repositories/genHistoryRepository")
+
+// Models
 const Historia = require('../models/historia')
 const Personaje = require('../models/personaje')
 const Genero = require('../models/genero')
 const Habilidad = require('../models/habilidad')
+
+// Utils
+const { v4: uuidv4 } = require('uuid');
 const ApiResponse = require('../helpers/ApiResponse')
 
 async function generarHistoriaService(historiaId, username) {
@@ -20,6 +27,7 @@ async function generarHistoriaService(historiaId, username) {
         const repoPersonaje = CharacterRepository.getInstance();
         const repoHabilidad = HabilityRepository.getInstance();
         const repoGenero = GenreRepository.getInstance();
+        const repoGenHis = GenHistoryRepository.getInstance();
 
         const historiaCreada = await repoHistoria.generarHistoria(historiaId, username);
 
@@ -49,6 +57,10 @@ async function generarHistoriaService(historiaId, username) {
         const requestGPT = prompt + jsonHist
 
         const historiaGenerada = await historiaAGenerar.getChatGptResponse(requestGPT)
+
+    
+        repoGenHis.crearGenHistoria({id: uuidv4(),idHist: historiaId, text: historiaGenerada, username:username})
+
         return historiaGenerada
     }catch(e){
        throw e

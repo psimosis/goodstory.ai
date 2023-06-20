@@ -44,7 +44,6 @@ module.exports = class HabilityDAO {
 
     borrar(id, username) {
         try{
-            console.log(id)
             return this.db.collection('habilities').findOneAndDelete({id: id, username: username})
         } catch (e) {
             throw new ErrorClasses.Error500();

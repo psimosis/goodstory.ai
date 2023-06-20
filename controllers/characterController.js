@@ -76,7 +76,6 @@ async function borrarPersonajeController(req, res) {
     try {
         const repo = CharacterRepository.getInstance();
         const personajeBorrado = await repo.borrar(id, req.username)
-        console.log(personajeBorrado)
         return ApiResponse.sendSuccessResponse(res, 200, {
             status: "Personaje eliminado",
             genero: personajeBorrado.value

@@ -1,13 +1,14 @@
 const { MongoClient } = require('mongodb');
 const ErrorClasses = require('../utils/error');
 
-module.exports = class HistoryDAO {
+module.exports = class GenHistoryDAO {
 
     constructor() {
         const uri = "mongodb+srv://lucasmfunes:mtEJ7j524rkbAuRF@ort-tp2.pkd5kbz.mongodb.net/?retryWrites=true&w=majority";
         this.client = new MongoClient(uri)
         this.dbName = 'goodstory'
     }
+
 
     async conectar() {
         try {
@@ -19,9 +20,9 @@ module.exports = class HistoryDAO {
         this.db = this.client.db(this.dbName)
     }
 
-    crear(historia) {
+    crear(genHist) {
         try{
-            return this.db.collection('histories').insertOne(historia);
+            return this.db.collection('generated-histories').insertOne(genHist);
         } catch (e) {
             throw new ErrorClasses.Error500();
         }
@@ -34,5 +35,4 @@ module.exports = class HistoryDAO {
             throw new ErrorClasses.Error500();
         }
     }
-
 }
