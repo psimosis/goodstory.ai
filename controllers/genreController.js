@@ -8,11 +8,9 @@ const ErrorClasses = require('../utils/error');
 
 
 async function crearGenero(req, res) {
-
-  console.log("hola")
     const nombre = req.body.nombre
     const descripcion = req.body.descripcion
-    const username = req.body.username
+    const username = req.username
 
     try {
         if (!nombre || !descripcion || !username) {
@@ -38,7 +36,7 @@ async function crearGenero(req, res) {
 async function listarGeneros(req, res) {
     try {
         const repo = GenreRepository.getInstance();
-        const lista = await repo.listar();
+        const lista = await repo.listar(req.username);
         return ApiResponse.sendSuccessResponse(res, 200, lista)
     } catch(e) {
       return ApiResponse.sendErrorResponse(res, e.statusCode, e.message)
@@ -46,18 +44,14 @@ async function listarGeneros(req, res) {
 }
 
 async function obtenerGenero(req, res) {
-    const nombreReq = req.body.nombre
-    const usernameReq = req.body.username
+    const id = req.body.id
     try {
-        if (!nombreReq || !usernameReq) {
+        if (!id) {
             throw new ErrorClasses.Error400()
         }
 
         const genreRepo = GenreRepository.getInstance();
-        const genero = await genreRepo.obtenerGenero({
-            nombre: nombreReq,
-            username: usernameReq
-        })
+        const genero = await genreRepo.obtenerGenero(id, req.username)
         return ApiResponse.sendSuccessResponse(res, 200, genero)
     } catch(e) {
         return ApiResponse.sendErrorResponse(res, e.statusCode, e.message)
@@ -65,21 +59,16 @@ async function obtenerGenero(req, res) {
 }
 
 async function borrarGenero(req, res) {
-    const nombreReq = req.body.nombre
-    const usernameReq = req.body.username
+    const id = req.body.id
 
     try {
-        if (!nombreReq || !usernameReq) {
+        if (!id) {
             throw new ErrorClasses.Error400()
         }
 
         const genreRepo = GenreRepository.getInstance();
-        const generoBorrado = await genreRepo.borrar({
-                nombre: nombreReq,
-                username: usernameReq
-        })
-        console.log("Género borrado: " + generoBorrado)
-        return ApiResponse.sendSuccessResponse(res, 204, {
+        const generoBorrado = await genreRepo.borrar(id, req.username)
+        return ApiResponse.sendSuccessResponse(res, 200, {
             status: "Género eliminado",
             genero: generoBorrado
         })

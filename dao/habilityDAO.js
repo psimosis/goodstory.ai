@@ -11,59 +11,42 @@ module.exports = class HabilityDAO {
         try {
           await this.client.connect()
         } catch (e) {
-          throw new Error(e.message)
+            throw new ErrorClasses.Error500();
         }
     
         this.db = this.client.db(this.dbName)
     }
     
-    listar() {
+    listar(username) {
         try{
-            return this.db.collection('habilities').find().toArray();
+            return this.db.collection('habilities').find({username: username}).toArray();
         } catch (e) {
-            throw new Error(e.message)
+            throw new ErrorClasses.Error500();
         }
         
     }
 
-    obtener(id) {
+    obtener(id, username) {
         try{
-            return this.db.collection('habilidad').findOne({id: id});
+            return this.db.collection('habilities').findOne({id: id, username: username});
         } catch (e) {
-            throw new Error(e.message)
+            throw new ErrorClasses.Error500();
         }
     }
-
-    // obtenerConToken(token) {
-    //     try{
-    //         console.log("El token del usuario en DAO a obtener es: " + token);
-    //         return this.db.collection('users').findOne({token: token});
-    //     } catch (e) {
-    //         throw new Error(e.message)
-    //     }
-    // }
-
-    // update(user){
-    //     try{
-    //         return this.db.collection('users').updateOne({ "username": user.username },
-    //         { $set: {
-    //           "nombre": user.nombre,
-    //           "apellido": user.apellido,
-    //           "username": user.username,
-    //           "password": user.password,
-    //           "token": user.token
-    //             }
-    //         })
-    //     } catch (e) {
-    //         throw new Error(e.message)
-    //     }
-    // }
 
     crear(habilidad) {
         try{
             return this.db.collection('habilities').insertOne(habilidad);
         } catch (e) {
-            throw new Error(e.message)
+            throw new ErrorClasses.Error500();
+        }
+    }
+
+    borrar(id, username) {
+        try{
+            return this.db.collection('habilities').findOneAndDelete({id: id, username: username})
+        } catch (e) {
+            throw new ErrorClasses.Error500();
         }
     }
 }

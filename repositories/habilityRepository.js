@@ -1,6 +1,6 @@
 const HabilityDAO = require("../dao/habilityDAO");
 const Habilidad = require('../models/habilidad')
-const DBError = require('../utils/error');
+const ErrorClasses = require('../utils/error');
 
 class HabilityRepository {
 
@@ -12,67 +12,46 @@ class HabilityRepository {
         try {
             await this.db.conectar();
             const hability = await this.db.crear(habilidad);
-            console.log(hability);
+            return hability
         } catch(e){
-            
+            throw e;
         }
     }
 
-    async obtenerHabilidad(habilidad){
+    async obtenerHabilidad(id, username){
         try {
             await this.db.conectar();
-            console.log(habilidad);
-            const hability = await this.db.obtener(habilidad);
-            console.log(habilidad);
+            const hability = await this.db.obtener(id, username);
 
             if(hability == null){
-                throw new DBError("Hability not found", 500);
+                throw new ErrorClasses.Error404();
             }
 
-            return user;
+            return hability;
         } catch(e){
-            throw new DBError(e.message, e.statusCode);
+            throw e;
         }
     }
 
-    async listarHabilidades(){
+    async listarHabilidades(username){
             await this.db.conectar();
-            const lista = await this.db.listar();
-            console.log(lista)
+            const lista = await this.db.listar(username);
             return lista;
     }
 
-    // async setSessionToken(user, token){
-    //     try {
-    //         await this.db.conectar();
-    //         const userDoc = await this.db.obtener(user.username);  
-    //         const userDb = new Usuario(
-    //             userDoc.nombre, 
-    //             userDoc.apellido,
-    //             userDoc.username,
-    //             userDoc.password,
-    //             token);
-    //         const result = await this.db.update(userDb);
-    
-    //     } catch(e){
-
-    //     }
-    // }
-
-    // async getUsrSessionToken(valToken){
-    //     try {
-    //         await this.db.conectar();
-    //         console.log("El token para obtener el usuario en el repositorio es: " + valToken);
-    //         const user = await this.db.obtenerConToken(valToken);
-    //         console.log("El usuario encontrado es: " + user);
-    //         //if(user == null){
-    //         //    throw new DBError("User not found", 500);
-    //         //}
-    //         return user;
-    //     } catch(e){
-    //         throw new DBError(e.message, e.statusCode);
-    //     }
-    // }
+    async borrar(id, username) {
+        try{
+            await this.db.conectar();
+            const habilidadBuscada = await this.db.obtener(id, username)
+            if(habilidadBuscada == null){
+                throw new ErrorClasses.Error404();
+            }
+            const habilidadBorrada = await this.db.borrar(id, username)
+            return habilidadBorrada    
+        } catch(e) {
+            throw e;
+        }
+    }
 
     static getInstance() {
         if (!HabilityRepository.instance) {

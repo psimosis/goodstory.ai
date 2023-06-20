@@ -12,7 +12,6 @@ class UserRepository {
         try {
             await this.db.conectar();
             const userDB = await this.db.crear(user);
-            console.log(userDB);
         } catch(e){
             throw e
         }
@@ -21,10 +20,7 @@ class UserRepository {
     async obtenerUsuario(username){
         try {
             await this.db.conectar();
-            console.log(username);
             const user = await this.db.obtener(username);
-            console.log(user);
-
             if(user == null){
                 throw new ErrorClasses.Error404()
             }
@@ -37,7 +33,6 @@ class UserRepository {
     async listarUsuarios(){
             await this.db.conectar();
             const lista = await this.db.listar();
-            console.log(lista)
             return lista;
     }
 
@@ -61,9 +56,7 @@ class UserRepository {
     async getUsrSessionToken(valToken){
         try {
             await this.db.conectar();
-            console.log("El token para obtener el usuario en el repositorio es: " + valToken);
             const user = await this.db.obtenerConToken(valToken);
-            console.log("El usuario encontrado es: " + user);
             //if(user == null){
             //    throw new DBError("User not found", 500);
             //}
