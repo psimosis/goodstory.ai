@@ -18,13 +18,26 @@ app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
 
+// History methods
+
+app.post('/history', sessionTokenValidate, crearHistoriaController)
+
+app.post('/history/generate', sessionTokenValidate, generarHistoriaController)
+
+// Characters methods
+app.post('/character', sessionTokenValidate, crearPersonajeController)
+
+app.post('/character/hability', sessionTokenValidate, anadirHabilidadController)
+
 app.get('/character', sessionTokenValidate, obtenerPersonajeController)
 
 app.get('/characters', sessionTokenValidate, listarPersonajesController)
 
 app.delete('/character',sessionTokenValidate, borrarPersonajeController)
 
-    // Agregar token al usuario 
+// User methods
+
+app.post('/user',userDataValidate, crearUsuarioController)
 
 app.get('/users', sessionTokenValidate, listarUsuarios)
 
