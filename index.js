@@ -35,7 +35,6 @@ app.get('/characters', sessionTokenValidate, listarPersonajesController)
 
 app.delete('/character',sessionTokenValidate, borrarPersonajeController)
 
-
 // User methods
 
 app.post('/user',userDataValidate, crearUsuarioController)
