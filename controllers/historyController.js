@@ -39,4 +39,15 @@ async function generarHistoriaController(req, res) {
     }
 }
 
-module.exports = { crearHistoriaController, generarHistoriaController }
+async function listarHistoriasController(req, res) {
+    try {
+        const repo = HistoryRepository.getInstance();
+        const listaHistorias = await repo.listarHistorias(req.username);
+        
+        return ApiResponse.sendSuccessResponse(res, 200, listaHistorias)
+    } catch(e) {
+        return ApiResponse.sendErrorResponse(res, e.statusCode, e.message)
+    }
+}
+
+module.exports = { crearHistoriaController, generarHistoriaController, listarHistoriasController }

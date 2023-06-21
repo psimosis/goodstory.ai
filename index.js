@@ -6,7 +6,8 @@ const { crearHabilidadController, listarHabilidadesController, obtenerHabilidadC
 const { crearPersonajeController, obtenerPersonajeController, 
   listarPersonajesController, borrarPersonajeController,
   anadirHabilidadController } = require("./controllers/characterController.js")
-const {crearHistoriaController, generarHistoriaController} = require("./controllers/historyController.js")
+const {crearHistoriaController, generarHistoriaController, listarHistoriasController} = require("./controllers/historyController.js")
+const { listarHistoriasGeneradas } = require('./controllers/genHistoryController.js')
 
 const express = require('express')
 const app = express()
@@ -22,7 +23,11 @@ app.listen(port, () => {
 
 app.post('/history', sessionTokenValidate, crearHistoriaController)
 
+app.get('/histories', sessionTokenValidate, listarHistoriasController)
+
 app.post('/history/generate', sessionTokenValidate, generarHistoriaController)
+
+app.get('/histories/generated', sessionTokenValidate, listarHistoriasGeneradas)
 
 // Characters methods
 app.post('/character', sessionTokenValidate, crearPersonajeController)

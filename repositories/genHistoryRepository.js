@@ -16,6 +16,12 @@ class GenHistoryRepository {
         }
     }
 
+    async listar(username) {
+        await this.db.conectar();
+        const lista = await this.db.listar(username);
+        return lista;
+    }
+
     static getInstance() {
         if (!GenHistoryRepository.instance) {
             GenHistoryRepository.instance = new GenHistoryRepository();

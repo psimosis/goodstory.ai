@@ -35,4 +35,12 @@ module.exports = class HistoryDAO {
         }
     }
 
+    listar(username) {
+        try{
+            return this.db.collection('histories').find({username: username}).toArray();
+        } catch (e) {
+            throw new ErrorClasses.Error500();
+        }
+    }
+
 }
