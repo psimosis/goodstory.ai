@@ -41,7 +41,7 @@ app.delete('/character',sessionTokenValidate, charDeleteValidate, borrarPersonaj
 
 // User methods
 
-app.post('/user',sessionTokenValidate, userDataValidate, crearUsuarioController)
+app.post('/user', userDataValidate, crearUsuarioController)
 
 app.get('/users', sessionTokenValidate, listarUsuarios)
 
