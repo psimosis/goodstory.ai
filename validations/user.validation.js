@@ -1,52 +1,46 @@
 const UserRepository = require('../repositories/usersRepository')
 const ErrorClasses = require('../utils/error');
+const ApiResponse = require('../helpers/ApiResponse')
 
 const userDataValidate = (req, res, next) => {
   if (!req.body.nombre) {
-    res.status(400);
-    res.json({
-      "status": "Name are required field"
-    }).send;
+    ApiResponse.sendErrorResponse(res, 400, "Nombre es un campo requerido.");
     return;
   }
   if (!req.body.apellido) {
-    res.status(400);
-    res.json({
-      "status": "Last Name are required field"
-    }).send;
+    ApiResponse.sendErrorResponse(res, 400, "Apellido es un campo requerido")
     return;
   }
   if (!req.body.username) {
-    res.status(400);
-    res.json({
-      "status": "User Name are required field"
-    }).send;
+    ApiResponse.sendErrorResponse(res, 400, "El nombre de usuario es un campo requerido")
     return;
   }
   if (!req.body.password) {
-    res.status(400);
-    res.json({
-      "status": "Password are required field"
-    }).send;
+    ApiResponse.sendErrorResponse(res, 400, "La contraseña es un campo requerido")
     return;
   }
   if (req.body.password.length < 5) {
-    res.status(400);
-    res.json({
-      "status": "Password should have at least 5 characters"
-    }).send;
+    ApiResponse.sendErrorResponse(res, 400, "La contraseña debe contener al menos 5 caracteres")
     return;
   }
   next();
 };
 
+const userGetValidate = (req, res, next) => {
+  if (!req.body.id) {
+      ApiResponse.sendErrorResponse(res, 400, "El ID del Personaje es un campo requerido")
+      return;
+  }
+  next();
+}
+
 const userLoginDataValidate = (req, res, next) => {
   if (!req.body.username) {
-    res.status(400).send('Bad Request: User Name are required fields');
+    ApiResponse.sendErrorResponse(res, 400, "El nombre de usuario es un campo requerido")
     return;
   }
   if (!req.body.password) {
-    res.status(400).send('Bad Request: Password are required fields');
+    ApiResponse.sendErrorResponse(res, 400, "La contraseña es un campo requerido")
     return;
   }
   next();
@@ -65,4 +59,4 @@ async function userValidateCredentials (username, password) {
   }
 }
 
-module.exports = { userDataValidate, userLoginDataValidate, userValidateCredentials };
+module.exports = { userGetValidate, userDataValidate, userLoginDataValidate, userValidateCredentials };

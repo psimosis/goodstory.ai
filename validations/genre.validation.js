@@ -1,0 +1,32 @@
+const ApiResponse = require('../helpers/ApiResponse')
+const isNumeric = require("isnumeric");
+
+const genreCreateValidate = (req, res, next) => {
+    if (!req.body.nombre) {
+        ApiResponse.sendErrorResponse(res, 400, "Nombre es un campo requerido")
+        return;
+    }
+    if (!req.body.descripcion) {
+        ApiResponse.sendErrorResponse(res, 400, "Descripcion es un campo requerido")
+        return;
+    }
+    next();
+};
+
+const genreGetValidate = (req, res, next) => {
+    if (!req.body.id) {
+        ApiResponse.sendErrorResponse(res, 400, "El ID es un campo requerido")
+        return;
+    }
+    next();
+}
+
+const genreDeleteValidate = (req, res, next) => {
+    if (!req.body.id) {
+        ApiResponse.sendErrorResponse(res, 400, "El ID es un campo requerido")
+        return;
+    }
+    next();
+}
+
+module.exports = {genreCreateValidate,genreGetValidate,genreDeleteValidate}
