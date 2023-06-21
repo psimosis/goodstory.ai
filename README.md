@@ -16,75 +16,68 @@ Integrantes:
 ***
 
 ## 1. Introducción
-El software de creación de historias impulsado por inteligencia artificial es una herramienta innovadora que utiliza algoritmos de aprendizaje automáticopara crear historias, personajes y escenarios únicos y personalizados.
-Los usuarios pueden crear historias en una amplia variedad de géneros, desde romance hasta ciencia ficción, y desde la fantasía hasta el misterio. Además, el software también puede crear personajes únicos, detallados y con personalidades distintas, con habilidades, debilidades y características especiales.
-El software también incluye herramientas de edición y personalización que permiten a los usuarios ajustar los detalles de la trama y el entorno para que se ajusten mejor a su visión y requisitos específicos. Además, el software también puede generar imágenes que corresponden a los personajes y lugares creados, lo que ayuda a dar vida a la historia.
+El software de creación de historias impulsado por inteligencia artificial es una herramienta innovadora que utiliza algoritmos de aprendizaje automático para crear historias a traves de personajes y elementos del usuario que podrá almacenar asociados a su perfil.
+Los usuarios pueden crear historias en una amplia variedad de géneros, desde romance hasta ciencia ficción, y desde la fantasía hasta el misterio. Además, estas historias son porsonalizables y almacenadas en una base de datos. El software también incluye herramientas de personalización que permite a los usuarios ajustar los detalles de las habilidades y caracteristicas de sus personajes.
 
 ## 2. Requerimientos del sistema
 
 ### 2.1 Funcionales
 
 - Capacidad para generar historias coherentes: el sistema debe ser capaz de generar historias que tengan sentido y coherencia en términos de la trama, los personajes y la ambientación.
-- Generación de personajes: el sistema debe ser capaz de generar personajes con características y rasgos únicos, y que sean coherentes con la historia.
-- Generación de imágenes: el sistema debe ser capaz de generar imágenes que estén relacionadas con la historia y los personajes que se han creado.
+- Creacion de personajes: el sistema debe permitir al usuario crear sus propios personajes con características y rasgos únicos.
 - Flexibilidad en la generación de historias: el sistema debe ser capaz de generar diferentes tipos de historias, desde cuentos cortos hasta novelas completas, y permitir la personalización de la historia por parte del usuario.
-- Personalización de personajes: el sistema debe permitir la personalización de los personajes creados, permitiendo al usuario cambiar sus características y rasgos.
-
+- Personalización: el sistema debe permitir la personalización de los personajes creados, permitiendo al usuario crear nuevas características y rasgos, para luego ser aplicados a los personajes.
+- Generos: El sistema debe permitirle al usuario crear nuevos generos que seran aplicados a la generacion de las historias.
+  
 ### 2.2 No funcionales
 
-- Conectividad: el sistema debe establecer una conexion y consumir los servicios de OpenAi GPT3 para la generacion de contenido y DALL·E 2 para las imagenes respectivamente.
+- Conectividad: el sistema debe establecer una conexion y consumir los servicios de OpenAi GPT3 para la generacion de contenido.
 - Fácil de usar: el sistema debe tener una instruccion fácil de usar e intuitiva para que el usuario pueda interactuar con él de manera efectiva.
 - Integración con otros sistemas: el sistema debe ser capaz de integrarse con otros sistemas o plataformas, como procesadores de texto o aplicaciones de redes sociales, para permitir la fácil compartición y publicación de las historias generadas.
-- Adaptabilidad: el sistema debe ser capaz de aprender de las preferencias y patrones de los usuarios, para generar historias más personalizadas y adaptadas a sus gustos.
+- Adaptabilidad: el sistema debe ser capaz de tener diversas preferencias y patrones de los usuarios, para generar historias más personalizadas y adaptadas a sus gustos.
+- Seguridad: el sistema debe tener una validacion de usuario que permita identificarlo unequívocamente y operar con él.
 
 ## 3. Reglas de negocio
 
-- Ingresar información: el usuario deberá ingresar una pequeña información sobre la historia que desea generar, sobre la trama, el género, los personajes y la ambientación.
-- Personalizar personajes: el usuario podrá personalizar mas los personajes a crear, seleccionando sus características y rasgos.
-- Obtener imágenes: el usuario podrá obtener las imágenes que se utilizarán para ilustrar la historia generada.
-- Revisar y editar: el usuario podrá revisar y editar la historia generada para asegurarse de que cumpla con sus expectativas.
+- Ingresar al sistema: el usuario deberá ingresar al sistema con su usuario y contraseña, mediante este proceso obtendra un Token de sesion que le permitira de ahi en mas realizar todas las operaciones con el sistema
+- Ingresar información: el usuario deberá crear sus generos, habilidades y personajes que seran los elementos necesarios para generar la historia.
+- Personalizar personajes: el usuario podrá personalizar mas los personajes, seleccionando sus características y personalidades.
+- Crear base de la historia: el usuario podrá crear la base de la historia con los elementos basicos para obtener mediante IA la trama de la misma. A partir de esta base podrá regenerar la trama cuantas veces quiera hasta obtener la deseada.
+- Generaracion IA: el usuario podrá generar la trama a travesa de la IA de OpenAi, podra hacerlo cuantas veces quiera hasta obtener la historia indicada. Estas historias se almacenan en la base de datos asociada al usuario.
 
+## 4. Posibles Clases Principales:
 
-## 4. Posibles Clases:
-
-Historia: representa la historia completa. Esta clase tiene los siguientes atributos:
+**Historia**: representa la historia completa. Esta clase tiene los siguientes atributos:
+- id: Clave.
+- Titulo: Titulo de la historia.
 - descripcion: descripción general de la historia.
 - genero: género al que pertenece la historia.
 - personajes: lista de objetos Personaje que aparecen en la historia.
+- username: usuario de la historia.
 
-Personaje: representa a un personaje de la historia. Esta clase tiene los siguientes atributos:
+**Personaje**: representa a un personaje de la historia. Esta clase tiene los siguientes atributos:
+- id: Clave.
 - nombre: nombre del personaje.
+- tipo: tipo del personaje.
 - edad: edad del personaje.
 - descripcion: descripción del personaje.
+- usuario: usuario del personaje.
+- habilidades: Array de Habilidades.
 
-GeneradorHistoria: esta clase es la encargada de generar una historia completa a partir de los datos ingresados por el usuario. Tiene los siguientes métodos:
-- generarHistoria(descripcion, cantidadPersonajes, genero): método que recibe la descripción de la historia, la cantidad de personajes y el género, y devuelve un objeto Historia completo con personajes y sus características.
+**Genero**: Representa al Genero de la Historia
+- id: Clave.
+- nombre: nombre del genero.
+- descripcion: descripcion del genero.
+- usuario: usuario del genero.
 
-ValidadorEntrada: esta clase se encarga de validar que los datos ingresados por el usuario sean válidos. Tiene los siguientes métodos:
+**Habilidad**: Representa las habilidades de los Personajes
+- id: Clave.
+- nombre: nombre de la habilidad.
+- descripcion: descripcion de la habilidad.
+- usuario: usuario de la habilidad.
 
-- validarDescripcion(descripcion): método que recibe la descripción de la historia y verifica que tenga al menos una longitud mínima y máxima.
-- validarCantidadPersonajes(cantidadPersonajes): método que recibe la cantidad de personajes y verifica que sea un número válido.
-- validarGenero(genero): método que recibe el género de la historia y verifica que sea un género válido.
-
-El flujo de trabajo sería el siguiente: el usuario ingresaría los datos de la historia, los cuales pasarían por la clase ValidadorEntrada para verificar que sean válidos. Si los datos son válidos, se llamaría al método generarHistoria de la clase GeneradorHistoria para crear la historia completa. Si los datos no son válidos, se le informaría al usuario y se le pediría que ingrese datos válidos.
+## Flujo
+El flujo de trabajo sería el siguiente: el usuario ingresaría al sistema con sus credenciales, luego da de alta el/los generos de las historias que podra generar, da de halta el/las habilidades de los personajes. Luego crea el/los personajes, puede agregarles habilidades para enriquecer la historia. Una vez que tiene todos los elementos, crea la historia ingresando el Titulo, una pequeña descripcion, asignado uno de los generos y el/los personajes previamente creados. Una vez creada la historia puede generar mediante IA el desarrollo de la historia previamente creada. Puede hacerlo tantas veces desee hasta obtener la deseada. Todos los datos y las historias son almacenadas en la Base de Datos y asociadas al usuario.
 
 ## 5. Conclusión
 El sistema de creación de historias es una herramienta poderosa y creativa que permite a los usuarios crear historias originales, con personajes únicos y detalles vívidos.
-
-
-1. Crear usuario
-2. Nos devuelve token, para operar
-
-Para personajes:
-3. www.api.com/personajes/types
-
-{
-"name" : Juan Lopez,
-"Type": Protagonista, co-protagonista, secundario
-"Edad": 23,
-}
-
-Para historia:
-
-Generos: Accion, Drama, Epica, Terror
-Estilo: Borges, Lovecraft, 
