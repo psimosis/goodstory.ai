@@ -1,9 +1,11 @@
 const HistoryDAO = require("../dao/historyDAO");
+const GenHistoryDAO = require('./genHistoryRepository')
 const ErrorClasses = require('../utils/error');
 
 class HistoryRepository {
     constructor() {
         this.db = new HistoryDAO();
+        this.genHistorydb = new GenHistoryDAO();
     }
 
     async crearHistoria(historia) {
@@ -33,6 +35,12 @@ class HistoryRepository {
         } catch(e){
             throw e;
         }
+    }
+
+    async listarHistorias(username){
+        await this.db.conectar();
+        const historiasLista = await this.db.listar(username);
+        return historiasLista;
     }
 
     static getInstance() {

@@ -28,6 +28,14 @@ module.exports = class GenHistoryDAO {
         }
     }
 
+    listar(username) {
+        try{
+            return this.db.collection('generated-histories').find({username: username}).toArray();
+        } catch (e) {
+            throw new ErrorClasses.Error500();
+        }
+    }
+
     obtener(id, username) {
         try{
             return this.db.collection('histories').findOne({id: id, username: username})

@@ -60,7 +60,6 @@ async function generarHistoriaService(historiaId, username) {
         const requestGPT = prompt + jsonHist
         const historiaGenerada = await historiaAGenerar.getChatGptResponse(requestGPT)
 
-    
         repoGenHis.crearGenHistoria({id: uuidv4(),idHist: historiaId, text: historiaGenerada, username:username})
 
         return historiaGenerada
@@ -68,7 +67,5 @@ async function generarHistoriaService(historiaId, username) {
        throw e
     }
 }
-
-
 
 module.exports = { generarHistoriaService }
