@@ -47,7 +47,7 @@ Los usuarios pueden crear historias en una amplia variedad de géneros, desde ro
 
 ## 4. Posibles Clases Principales:
 
-Historia: representa la historia completa. Esta clase tiene los siguientes atributos:
+**Historia**: representa la historia completa. Esta clase tiene los siguientes atributos:
 - id: Clave.
 - Titulo: Titulo de la historia.
 - descripcion: descripción general de la historia.
@@ -55,7 +55,7 @@ Historia: representa la historia completa. Esta clase tiene los siguientes atrib
 - personajes: lista de objetos Personaje que aparecen en la historia.
 - username: usuario de la historia.
 
-Personaje: representa a un personaje de la historia. Esta clase tiene los siguientes atributos:
+**Personaje**: representa a un personaje de la historia. Esta clase tiene los siguientes atributos:
 - id: Clave.
 - nombre: nombre del personaje.
 - tipo: tipo del personaje.
@@ -64,18 +64,19 @@ Personaje: representa a un personaje de la historia. Esta clase tiene los siguie
 - usuario: usuario del personaje.
 - habilidades: Array de Habilidades.
 
-Genero: Representa al Genero de la Historia
+**Genero**: Representa al Genero de la Historia
 - id: Clave.
 - nombre: nombre del genero.
 - descripcion: descripcion del genero.
 - usuario: usuario del genero.
 
-Habilidad: Representa las habilidades de los Personajes
+**Habilidad**: Representa las habilidades de los Personajes
 - id: Clave.
 - nombre: nombre de la habilidad.
 - descripcion: descripcion de la habilidad.
 - usuario: usuario de la habilidad.
 
+## Flujo
 El flujo de trabajo sería el siguiente: el usuario ingresaría al sistema con sus credenciales, luego da de alta el/los generos de las historias que podra generar, da de halta el/las habilidades de los personajes. Luego crea el/los personajes, puede agregarles habilidades para enriquecer la historia. Una vez que tiene todos los elementos, crea la historia ingresando el Titulo, una pequeña descripcion, asignado uno de los generos y el/los personajes previamente creados. Una vez creada la historia puede generar mediante IA el desarrollo de la historia previamente creada. Puede hacerlo tantas veces desee hasta obtener la deseada. Todos los datos y las historias son almacenadas en la Base de Datos y asociadas al usuario.
 
 ## 5. Conclusión
