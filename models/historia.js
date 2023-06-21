@@ -29,6 +29,7 @@ class Historia {
     }
 
     async getChatGptResponse(request) {
+      console.log("Api KEY: " + process.env.CODE)
       const configuration = new Configuration({
         apiKey: process.env.CODE,
       });

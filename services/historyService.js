@@ -55,10 +55,9 @@ async function generarHistoriaService(historiaId, username) {
             historiaAGenerar.personajes.push(personajeA)
         }
 
-        console.log("Generando historia...")
+                
         const jsonHist = JSON.stringify(historiaAGenerar)
         const requestGPT = prompt + jsonHist
-
         const historiaGenerada = await historiaAGenerar.getChatGptResponse(requestGPT)
 
     

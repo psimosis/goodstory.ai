@@ -3,6 +3,7 @@ const { userGetValidate, userDataValidate, userLoginDataValidate } = require("./
 const { charCreateValidate,charGetValidate,charHabilityValidate,charDeleteValidate } = require("./validations/char.validation.js");
 const { genreCreateValidate,genreGetValidate,genreDeleteValidate } = require("./validations/genre.validation.js");
 const { habilityCreateValidate,habilityGetValidate,habilityDeleteValidate } = require("./validations/hability.validation.js");
+const { historyCreateValidate, historyGenerateGetValidate } = require("./validations/historyGen.validation.js");
 const { sessionTokenValidate } = require("./controllers/authorizationController.js");
 const { crearGenero, listarGeneros, obtenerGenero, borrarGenero } = require("./controllers/genreController.js")
 const { crearHabilidadController, listarHabilidadesController, obtenerHabilidadController, borrarHabilidadController } = require("./controllers/habilityController.js")
@@ -23,9 +24,9 @@ app.listen(port, () => {
 
 // History methods
 
-app.post('/history', sessionTokenValidate, crearHistoriaController)
+app.post('/history', sessionTokenValidate, historyCreateValidate, crearHistoriaController)
 
-app.post('/history/generate', sessionTokenValidate, generarHistoriaController)
+app.post('/history/generate', sessionTokenValidate, historyGenerateGetValidate, generarHistoriaController)
 
 // Characters methods
 app.post('/character', sessionTokenValidate, charCreateValidate, crearPersonajeController)
